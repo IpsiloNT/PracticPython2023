@@ -1,18 +1,31 @@
 [
     {
-        "id": 2,
-        "surname": "awgawgawga",
-        "name": "awgawgaw",
-        "login": "d",
+        "id": 1,
+        "surname": "d",
+        "name": "d",
+        "login": "dd",
         "password": "d",
-        "role": 1
+        "role": 1,
+        "status": "active",
+        "login_count": 4
+    },
+    {
+        "id": 2,
+        "surname": "awd",
+        "name": "awd",
+        "login": "d",
+        "password": "aaaaaa",
+        "role": 1,
+        "status": "active",
+        "login_count": 1
     },
     {
         "id": 3,
-        "surname": "awgawgaw",
-        "name": "awgawgawgaw",
-        "login": "daa",
-        "password": "daa",
-        "role": 1
+        "surname": "",
+        "name": "",
+        "login": "1",
+        "password": "awfawfawf",
+        "role": 0,
+        "status": "inactive"
     }
 ]
