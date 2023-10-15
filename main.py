@@ -213,6 +213,7 @@ def admin_menu(data):
             break
         else:
             print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
+
 def view_stats_menu(data):
     while True:
         print("\033[96m1.\033[0m По входам в систему")
@@ -221,7 +222,8 @@ def view_stats_menu(data):
         choice = input("Выберите тип статистики: ")
 
         if choice == "1":
-            # TODO: Реализовать код для просмотра статистики по входам в систему
+            view_users(data)
+            view_stats_login(data)
             pass
         elif choice == "2":
             # TODO: Реализовать код для просмотра статистики по продолжительности работы пользователей
@@ -230,6 +232,20 @@ def view_stats_menu(data):
             break
         else:
             print("Неверный выбор. Пожалуйста, выберите 1, 2 или 3.")
+
+def view_stats_login(data):
+    while True:
+        user_login = input("Введите логин пользователя, статистику которого вы хотите посмотреть (или нажмите Enter для отмены): ")
+        if not user_login:
+            return
+
+        user = next((user for user in data if user["login"] == user_login), None)
+
+        if user:
+            print(f"Статистика входов для пользователя с логином '{user_login}':")
+            print(f"Всего входов: {user['login_count']}")
+        else:
+            print(f"Пользователь с логином '{user_login}' не найден.")
 
 # Основной цикл программы
 while True:
