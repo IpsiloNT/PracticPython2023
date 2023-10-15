@@ -1,5 +1,6 @@
 import json
 from prettytable import PrettyTable
+from datetime import datetime
 
 # Функция для загрузки данных из JSON-файла
 def load_data():
@@ -11,6 +12,7 @@ def load_data():
 
     for user in data:
         user.setdefault("login_count", 0)
+        user.setdefault("last_login_time", None)
 
     return data
 
@@ -37,6 +39,9 @@ def authenticate(data):
                 print("Вы не можете войти, так как вы отключены от системы. Обратитесь к администратору.")
                 continue
 
+            # Обновление времени последнего входа
+            user["last_login_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
             print(f"Вы вошли как {'Администратор' if user['role'] == 1 else 'Пользователь'}")
 
             # Увеличение счетчика входов для пользователя
@@ -48,6 +53,7 @@ def authenticate(data):
             if user["role"] == 1:
                 admin_menu(data)
             break
+
         else:
             print("Ошибка авторизации. Проверьте логин и пароль.")
 
@@ -213,6 +219,29 @@ def admin_menu(data):
             break
         else:
             print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
+
+def view_work_duration(data):
+    login_to_view_duration = input("Введите логин пользователя для просмотра продолжительности работы (или нажмите Enter для отмены): ")
+
+    user_to_view_duration = next((user for user in data if user["login"] == login_to_view_duration), None)
+
+    if user_to_view_duration:
+        login_time = user_to_view_duration["last_login_time"]
+        if login_time:
+            login_time = datetime.strptime(login_time, "%Y-%m-%d %H:%M:%S")
+            current_time = datetime.now()
+            duration = current_time - login_time
+            hours, remainder = divmod(duration.total_seconds(), 3600)
+            minutes, seconds = divmod(remainder, 60)
+            duration_str = f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
+            print(f"Пользователь с логином '{login_to_view_duration}' последний раз вошел в {login_time}, и он был в системе {duration_str}.")
+        else:
+            print(f"Пользователь с логином '{login_to_view_duration}' еще не входил в систему.")
+    elif login_to_view_duration:
+        print(f"Пользователь с логином '{login_to_view_duration}' не найден.")
+
+
+
 def view_stats_menu(data):
     while True:
         print("\033[96m1.\033[0m По входам в систему")
@@ -224,7 +253,8 @@ def view_stats_menu(data):
             # TODO: Реализовать код для просмотра статистики по входам в систему
             pass
         elif choice == "2":
-            # TODO: Реализовать код для просмотра статистики по продолжительности работы пользователей
+            view_users(data)
+            view_work_duration(data)
             pass
         elif choice == "3":
             break
