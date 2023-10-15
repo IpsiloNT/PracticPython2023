@@ -220,11 +220,7 @@ def admin_menu(data):
         else:
             print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
 
-def view_work_duration(data):
-    login_to_view_duration = input("Введите логин пользователя для просмотра продолжительности работы (или нажмите Enter для отмены): ")
-
-    user_to_view_duration = next((user for user in data if user["login"] == login_to_view_duration), None)
-
+def view_work_duration(user_to_view_duration):
     if user_to_view_duration:
         login_time = user_to_view_duration["last_login_time"]
         if login_time:
@@ -234,11 +230,13 @@ def view_work_duration(data):
             hours, remainder = divmod(duration.total_seconds(), 3600)
             minutes, seconds = divmod(remainder, 60)
             duration_str = f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
-            print(f"Пользователь с логином '{login_to_view_duration}' последний раз вошел в {login_time}, и он был в системе {duration_str}.")
+            print(f"Пользователь с логином '{user_to_view_duration['login']}' последний раз вошел в {login_time}, и он был в системе {duration_str}.")
         else:
-            print(f"Пользователь с логином '{login_to_view_duration}' еще не входил в систему.")
-    elif login_to_view_duration:
-        print(f"Пользователь с логином '{login_to_view_duration}' не найден.")
+            print(f"Пользователь с логином '{user_to_view_duration['login']}' еще не входил в систему.")
+    else:
+        print("Пользователь не найден.")
+
+
 
 
 
@@ -254,7 +252,10 @@ def view_stats_menu(data):
             pass
         elif choice == "2":
             view_users(data)
-            view_work_duration(data)
+            login_to_view_duration = input(
+            "Введите логин пользователя для просмотра продолжительности работы (или нажмите Enter для отмены): ")
+            user_to_view_duration = next((user for user in data if user["login"] == login_to_view_duration), None)
+            view_work_duration(user_to_view_duration)
             pass
         elif choice == "3":
             break
