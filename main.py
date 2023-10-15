@@ -9,7 +9,6 @@ def load_data():
     except (FileNotFoundError, json.decoder.JSONDecodeError):
         data = []
 
-    # Добавьте поле "login_count" со значением 0, если его нет
     for user in data:
         user.setdefault("login_count", 0)
 
@@ -186,7 +185,6 @@ def change_user_data(data):
     elif login_to_change:
         print(f"Пользователь с логином '{login_to_change}' не найден.")
 
-
 # Функция для администраторского меню
 def admin_menu(data):
     while True:
@@ -195,7 +193,8 @@ def admin_menu(data):
         print("\033[96m3.\033[0m Удалить пользователя")
         print("\033[96m4.\033[0m Изменить данные пользователя")
         print("\033[96m5.\033[0m Изменить статус пользователя (включен/отключен)")
-        print("\033[96m6.\033[0m Выход")
+        print("\033[96m6.\033[0m Просмотр статистики")
+        print("\033[96m7.\033[0m Выход")
         choice = input("Выберите действие: ")
 
         if choice == "1":
@@ -209,9 +208,28 @@ def admin_menu(data):
         elif choice == "5":
             change_user_status(data)
         elif choice == "6":
+            view_stats_menu(data)
+        elif choice == "7":
             break
         else:
-            print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5 или 6.")
+            print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
+def view_stats_menu(data):
+    while True:
+        print("\033[96m1.\033[0m По входам в систему")
+        print("\033[96m2.\033[0m По продолжительности работы пользователей")
+        print("\033[96m3.\033[0m Выход")
+        choice = input("Выберите тип статистики: ")
+
+        if choice == "1":
+            # TODO: Реализовать код для просмотра статистики по входам в систему
+            pass
+        elif choice == "2":
+            # TODO: Реализовать код для просмотра статистики по продолжительности работы пользователей
+            pass
+        elif choice == "3":
+            break
+        else:
+            print("Неверный выбор. Пожалуйста, выберите 1, 2 или 3.")
 
 # Основной цикл программы
 while True:
