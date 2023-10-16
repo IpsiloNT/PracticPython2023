@@ -12,15 +12,12 @@ def load_data():
 
     for user in data:
         user.setdefault("login_count", 0)
-        user.setdefault("last_login_time", None)
-
     return data
 
 # Функция для сохранения данных в JSON-файл
 def save_data(data):
     with open("users.json", "w") as f:
         json.dump(data, f, indent=4)
-
 
 # Функция для проверки существования пользователя по логину
 def check_user_existence(login, data):
@@ -39,23 +36,25 @@ def authenticate(data):
                 print("Вы не можете войти, так как вы отключены от системы. Обратитесь к администратору.")
                 continue
 
-            # Обновление времени последнего входа
-            user["last_login_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
             print(f"Вы вошли как {'Администратор' if user['role'] == 1 else 'Пользователь'}")
 
-            # Увеличение счетчика входов для пользователя
-            user["login_count"] += 1
-
-            # Сохранение обновленных данных в JSON
+            user["login_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            user["logout_time"] = None
             save_data(data)
 
             if user["role"] == 1:
-                admin_menu(data)
+                admin_menu(data, user_login)
             break
 
         else:
             print("Ошибка авторизации. Проверьте логин и пароль.")
+
+def logout_user(data, user_login):
+    user = next((user for user in data if user["login"] == user_login), None)
+    if user:
+        user["logout_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        save_data(data)
+
 
 # Функция для отображения данных всех пользователей через PrettyTable
 def view_users(data):
@@ -192,7 +191,7 @@ def change_user_data(data):
         print(f"Пользователь с логином '{login_to_change}' не найден.")
 
 # Функция для админ меню
-def admin_menu(data):
+def admin_menu(data, user_login):
     while True:
         print("\033[96m1.\033[0m Посмотреть данные пользователей")
         print("\033[96m2.\033[0m Добавить нового пользователя")
@@ -216,25 +215,33 @@ def admin_menu(data):
         elif choice == "6":
             view_stats_menu(data)
         elif choice == "7":
+            logout_user(data, user_login)  # Вызов функции logout_user при выходе
             break
         else:
             print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
 
 def view_work_duration(user_to_view_duration):
     if user_to_view_duration:
-        login_time = user_to_view_duration["last_login_time"]
+        login_time = user_to_view_duration.get("login_time", None)
         if login_time:
             login_time = datetime.strptime(login_time, "%Y-%m-%d %H:%M:%S")
             current_time = datetime.now()
-            duration = current_time - login_time
+            logout_time = user_to_view_duration.get("logout_time")
+            if logout_time:
+                logout_time = datetime.strptime(logout_time, "%Y-%m-%d %H:%M:%S")
+            else:
+                logout_time = current_time
+            duration = logout_time - login_time
             hours, remainder = divmod(duration.total_seconds(), 3600)
             minutes, seconds = divmod(remainder, 60)
             duration_str = f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
-            print(f"Пользователь с логином '{user_to_view_duration['login']}' последний раз вошел в {login_time}, и он был в системе {duration_str}.")
+            print(f"Пользователь с логином '{user_to_view_duration['login']}' вошел в {login_time}, вышел в {logout_time}, и он был в системе {duration_str}.")
         else:
             print(f"Пользователь с логином '{user_to_view_duration['login']}' еще не входил в систему.")
     else:
         print("Пользователь не найден.")
+
+
 
 def view_stats_menu(data):
     while True:
