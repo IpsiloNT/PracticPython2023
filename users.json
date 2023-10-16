@@ -7,7 +7,7 @@
         "password": "d",
         "role": 1,
         "status": "active",
-        "login_count": 11
+        "login_count": 6
     },
     {
         "id": 2,
@@ -18,5 +18,15 @@
         "role": 1,
         "status": "active",
         "login_count": 1
+    },
+    {
+        "id": 3,
+        "surname": "",
+        "name": "",
+        "login": "1",
+        "password": "awfawfawf",
+        "role": 0,
+        "status": "inactive",
+        "login_count": 0
     }
 ]
