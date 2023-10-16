@@ -51,7 +51,7 @@ def authenticate(data):
         else:
             print("Ошибка авторизации. Проверьте логин и пароль.")
 
-# Функция для отображения данных всех пользователей с использованием PrettyTable
+# Функция для отображения данных всех пользователей через PrettyTable
 def view_users(data):
     if not data:
         print("Нет зарегистрированных пользователей.")
@@ -185,7 +185,7 @@ def change_user_data(data):
     elif login_to_change:
         print(f"Пользователь с логином '{login_to_change}' не найден.")
 
-# Функция для администраторского меню
+# Функция админ меню
 def admin_menu(data):
     while True:
         print("\033[96m1.\033[0m Посмотреть данные пользователей")
@@ -214,6 +214,7 @@ def admin_menu(data):
         else:
             print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
 
+# Функция меню выбора статистики
 def view_stats_menu(data):
     while True:
         print("\033[96m1.\033[0m По входам в систему")
