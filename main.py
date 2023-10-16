@@ -155,10 +155,20 @@ def change_user_data(data):
     user_to_change = next((user for user in data if user["login"] == login_to_change), None)
 
     if user_to_change:
-        print("Введите новые данные для пользователя (оставьте поле пустым, чтобы оставить без изменений):")
+
         new_last_name = input(f"Новая фамилия ({user_to_change['surname']}): ")
         new_first_name = input(f"Новое имя ({user_to_change['name']}): ")
-        new_login = input(f"Новый логин ({user_to_change['login']}): ")
+
+        while True:
+            new_login = input(f"Новый логин ({user_to_change['login']}): ")
+            if new_login and new_login != login_to_change:
+                if check_user_existence(new_login, data):
+                    print("Пользователь с таким логином уже существует. Пожалуйста, выберите другой логин.")
+                else:
+                    user_to_change['login'] = new_login
+                    break
+            else:
+                break
 
         while True:
             new_password = input(f"Новый пароль ({user_to_change['password']}): ")
@@ -171,11 +181,6 @@ def change_user_data(data):
             user_to_change['surname'] = new_last_name
         if new_first_name:
             user_to_change['name'] = new_first_name
-        if new_login:
-            if check_user_existence(new_login, data):
-                print("Пользователь с таким логином уже существует.")
-            else:
-                user_to_change['login'] = new_login
         if new_password:
             user_to_change['password'] = new_password
 
@@ -184,6 +189,8 @@ def change_user_data(data):
         view_users(data)
     elif login_to_change:
         print(f"Пользователь с логином '{login_to_change}' не найден.")
+
+
 
 # Функция админ меню
 def admin_menu(data):
@@ -261,5 +268,3 @@ while True:
         break
     else:
         print("Неверный выбор. Пожалуйста, выберите 1 или 2.")
-
-## TODO: при изменении пользователя выдавать ошибку если логин уже есть
