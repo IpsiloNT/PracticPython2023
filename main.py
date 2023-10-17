@@ -299,6 +299,60 @@ def sort_menu():
         else:
             print("Неверный выбор сортировки. Пожалуйста, выберите 1, 2, 3 или 4.")
 
+def filter_active_users(data):
+    print("\033[96mАктивные пользователи:\033[0m")
+    active_users = [user for user in data if user['status'] == 'active']
+    if not active_users:
+        print("Нет активных пользователей.")
+    else:
+        display_users1(active_users)
+
+def filter_inactive_users(data):
+    print("\033[96mНеактивные пользователи:\033[0m")
+    inactive_users = [user for user in data if user['status'] == 'inactive']
+    if not inactive_users:
+        print("Нет неактивных пользователей.")
+    else:
+        display_users1(inactive_users)
+
+
+def filter_admins(data):
+    print("\033[96mАдминистраторы:\033[0m")
+    admins = [user for user in data if user['role'] == 1]
+    if not admins:
+        print("Нет администраторов.")
+    else:
+        display_users2(admins)
+
+def filter_users(data):
+    print("\033[96mПользователи:\033[0m")
+    admins = [user for user in data if user['role'] == 0]
+    if not admins:
+        print("Нет пользователей.")
+    else:
+        display_users2(admins)
+
+
+def display_users1(users):
+    # В этой функции можно отобразить информацию о пользователях (например, используя PrettyTable)
+    # Примерно так:
+    table = PrettyTable()
+    table.field_names = ["ID", "Фамилия", "Имя", "Логин", "Статус"]
+    for user in users:
+        table.add_row([user['id'], user['surname'], user['name'], user['login'], user['status']])
+    print(table)
+
+def display_users2(users):
+    # В этой функции можно отобразить информацию о пользователях (например, используя PrettyTable)
+    # Примерно так:
+    table = PrettyTable()
+    table.field_names = ["ID", "Фамилия", "Имя", "Логин", "Роль"]
+    for user in users:
+        role = "Администратор" if user["role"] == 1 else "Пользователь"
+        table.add_row([user['id'], user['surname'], user['name'], user['login'], role])
+    print(table)
+
+
 def filter_menu():
     while True:
         print("\033[96mФильтрация:\033[0m")
@@ -310,16 +364,16 @@ def filter_menu():
         filter_choice = input("Выберите опцию фильтрации: ")
 
         if filter_choice == "1":
-            # TODO реализовать фильтрацию активных пользователей
+            filter_active_users(data)
             pass
         elif filter_choice == "2":
-            # TODO реализовать фильтрацию отключенных пользователей
+            filter_inactive_users(data)
             pass
         elif filter_choice == "3":
-            # TODO реализовать фильтрацию администраторов
+            filter_admins(data)
             pass
         elif filter_choice == "4":
-            # TODO реализовать фильтрацию обычных пользователей
+            filter_users(data)
             pass
         elif filter_choice == "5":
             break  # Выход из меню фильтрации
