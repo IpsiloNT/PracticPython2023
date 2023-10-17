@@ -7,14 +7,14 @@
         "password": "d",
         "role": 1,
         "status": "active",
-        "login_count": 28
+        "login_count": 43
     },
     {
         "id": 2,
         "surname": "awd",
         "name": "awd",
         "login": "d",
-        "password": "aaaaaa",
+        "password": "d",
         "role": 1,
         "status": "active",
         "login_count": 2
