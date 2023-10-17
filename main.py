@@ -45,19 +45,20 @@ def authenticate(data):
             save_data(data)
 
             if user["role"] == 1:
-                admin_menu(data, user_login)
+                admin_menu(data)
             break
 
         else:
             print("Ошибка авторизации. Проверьте логин и пароль.")
 
 def logout_user(data):
-    # Предполагая, что у вас есть переменная с именем 'user_login' в вашем коде
     user_login = input("Введите логин пользователя для выхода: ")
     user = next((user for user in data if user["login"] == user_login), None)
     if user:
         user["logout_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         save_data(data)
+    else:
+        print(f"Пользователь с логином '{user_login}' не найден.")
 
 
 # Функция для отображения данных всех пользователей через PrettyTable
@@ -201,9 +202,7 @@ def print_sorted_surname(data):
     table.field_names = ["Фамилия"]
 
     for user in data:
-        table.add_row([
-            user["surname"]
-        ])
+        table.add_row([user["surname"]])
 
     print(table)
 
@@ -212,9 +211,7 @@ def print_sorted_name(data):
     table.field_names = ["Имя"]
 
     for user in data:
-        table.add_row([
-            user["name"]
-        ])
+        table.add_row([user["name"]])
     print(table)
 
 def print_sorted_login(data):
@@ -222,14 +219,12 @@ def print_sorted_login(data):
     table.field_names = ["Логин"]
 
     for user in data:
-        table.add_row([
-            user["login"]
-        ])
+        table.add_row([user["login"]])
 
     print(table)
 
 # Функция для показа опции сортировки
-def sort_menu():
+def sort_menu(data):
     while True:
         print("\033[96mСортировка:\033[0m")
         print("1. По Фамилии")
@@ -324,11 +319,11 @@ def filter_admins(data):
 
 def filter_users(data):
     print("\033[96mПользователи:\033[0m")
-    admins = [user for user in data if user['role'] == 0]
-    if not admins:
+    users = [user for user in data if user['role'] == 0]
+    if not users:
         print("Нет пользователей.")
     else:
-        display_users2(admins)
+        display_users2(users)
 
 # Функция для поиска данных по введенному слову
 def search_data_by_word(data, search_query):
@@ -384,7 +379,7 @@ def display_users2(users):
     print(table)
 
 
-def filter_menu():
+def filter_menu(data):
     while True:
         print("\033[96mФильтрация:\033[0m")
         print("1. Активные пользователи")  # Опция для фильтрации активных пользователей
@@ -396,16 +391,12 @@ def filter_menu():
 
         if filter_choice == "1":
             filter_active_users(data)
-            pass
         elif filter_choice == "2":
             filter_inactive_users(data)
-            pass
         elif filter_choice == "3":
             filter_admins(data)
-            pass
         elif filter_choice == "4":
             filter_users(data)
-            pass
         elif filter_choice == "5":
             break  # Выход из меню фильтрации
         else:
@@ -413,7 +404,7 @@ def filter_menu():
 
 
 # Функция для выбора сортировка/фильтрация
-def sort_or_filtr():
+def sort_or_filter(data):
     while True:
         print("1. Сортировка")
         print("2. Фильтрация")
@@ -422,19 +413,15 @@ def sort_or_filtr():
         option_choice = input("Выберите опцию: ")
 
         if option_choice == "1":
-            sort_menu()
-            pass
+            sort_menu(data)
         elif option_choice == "2":
-            filter_menu()
-            pass
+            filter_menu(data)
         elif option_choice == "3":
             search_by_word(data)
-            pass
         elif option_choice == "4":
             break
         else:
             print("Неверный выбор. Пожалуйста, выберите 1, 2, 3 или 4.")
-    pass
 
 
 def print_sorted_surname(data):
@@ -722,11 +709,11 @@ def view_work_duration(user_to_view_duration):
     if user_to_view_duration:
         login_time = user_to_view_duration.get("login_time", None)
         if login_time:
-            login_time = datetime.datetime.strptime(login_time, "%Y-%m-%d %H:%M:%S")
-            current_time = datetime.datetime.now()
+            login_time = datetime.strptime(login_time, "%Y-%m-%d %H:%M:%S")
+            current_time = datetime.now()
             logout_time = user_to_view_duration.get("logout_time")
             if logout_time:
-                logout_time = datetime.datetime.strptime(logout_time, "%Y-%m-%d %H:%M:%S")
+                logout_time = datetime.strptime(logout_time, "%Y-%m-%d %H:%M:%S")
             else:
                 logout_time = current_time
             duration = logout_time - login_time
