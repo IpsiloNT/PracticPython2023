@@ -51,7 +51,7 @@ def authenticate(data):
         else:
             print("Ошибка авторизации. Проверьте логин и пароль.")
 
-# Функция для отображения данных всех пользователей через PrettyTable
+# Функция для отображения данных всех пользователей с использованием PrettyTable
 def view_users(data):
     if not data:
         print("Нет зарегистрированных пользователей.")
@@ -155,20 +155,10 @@ def change_user_data(data):
     user_to_change = next((user for user in data if user["login"] == login_to_change), None)
 
     if user_to_change:
-
+        print("Введите новые данные для пользователя (оставьте поле пустым, чтобы оставить без изменений):")
         new_last_name = input(f"Новая фамилия ({user_to_change['surname']}): ")
         new_first_name = input(f"Новое имя ({user_to_change['name']}): ")
-
-        while True:
-            new_login = input(f"Новый логин ({user_to_change['login']}): ")
-            if new_login and new_login != login_to_change:
-                if check_user_existence(new_login, data):
-                    print("Пользователь с таким логином уже существует. Пожалуйста, выберите другой логин.")
-                else:
-                    user_to_change['login'] = new_login
-                    break
-            else:
-                break
+        new_login = input(f"Новый логин ({user_to_change['login']}): ")
 
         while True:
             new_password = input(f"Новый пароль ({user_to_change['password']}): ")
@@ -181,6 +171,11 @@ def change_user_data(data):
             user_to_change['surname'] = new_last_name
         if new_first_name:
             user_to_change['name'] = new_first_name
+        if new_login:
+            if check_user_existence(new_login, data):
+                print("Пользователь с таким логином уже существует.")
+            else:
+                user_to_change['login'] = new_login
         if new_password:
             user_to_change['password'] = new_password
 
@@ -190,9 +185,7 @@ def change_user_data(data):
     elif login_to_change:
         print(f"Пользователь с логином '{login_to_change}' не найден.")
 
-
-
-# Функция админ меню
+# Функция для администраторского меню
 def admin_menu(data):
     while True:
         print("\033[96m1.\033[0m Посмотреть данные пользователей")
@@ -220,8 +213,6 @@ def admin_menu(data):
             break
         else:
             print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
-
-# Функция меню выбора статистики
 def view_stats_menu(data):
     while True:
         print("\033[96m1.\033[0m По входам в систему")
@@ -230,8 +221,7 @@ def view_stats_menu(data):
         choice = input("Выберите тип статистики: ")
 
         if choice == "1":
-            view_users(data)
-            view_stats_login(data)
+            # TODO: Реализовать код для просмотра статистики по входам в систему
             pass
         elif choice == "2":
             # TODO: Реализовать код для просмотра статистики по продолжительности работы пользователей
@@ -240,20 +230,6 @@ def view_stats_menu(data):
             break
         else:
             print("Неверный выбор. Пожалуйста, выберите 1, 2 или 3.")
-
-def view_stats_login(data):
-    while True:
-        user_login = input("Введите логин пользователя, статистику которого вы хотите посмотреть (или нажмите Enter для отмены): ")
-        if not user_login:
-            return
-
-        user = next((user for user in data if user["login"] == user_login), None)
-
-        if user:
-            print(f"Статистика входов для пользователя с логином '{user_login}':")
-            print(f"Всего входов: {user['login_count']}")
-        else:
-            print(f"Пользователь с логином '{user_login}' не найден.")
 
 # Основной цикл программы
 while True:
