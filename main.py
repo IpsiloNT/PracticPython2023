@@ -12,15 +12,12 @@ def load_data():
 
     for user in data:
         user.setdefault("login_count", 0)
-        user.setdefault("last_login_time", None)
-
     return data
 
 # Функция для сохранения данных в JSON-файл
 def save_data(data):
     with open("users.json", "w") as f:
         json.dump(data, f, indent=4)
-
 
 # Функция для проверки существования пользователя по логину
 def check_user_existence(login, data):
@@ -44,15 +41,24 @@ def authenticate(data):
             # Увеличение счетчика входов для пользователя
             user["login_count"] += 1
 
-            # Сохранение обновленных данных в JSON
+            user["logout_time"] = None
             save_data(data)
 
             if user["role"] == 1:
-                admin_menu(data)
+                admin_menu(data, user_login)
             break
 
         else:
             print("Ошибка авторизации. Проверьте логин и пароль.")
+
+def logout_user(data):
+    # Предполагая, что у вас есть переменная с именем 'user_login' в вашем коде
+    user_login = input("Введите логин пользователя для выхода: ")
+    user = next((user for user in data if user["login"] == user_login), None)
+    if user:
+        user["logout_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        save_data(data)
+
 
 # Функция для отображения данных всех пользователей через PrettyTable
 def view_users(data):
@@ -187,6 +193,248 @@ def change_user_data(data):
         view_users(data)
     elif login_to_change:
         print(f"Пользователь с логином '{login_to_change}' не найден.")
+
+
+# Функция для показа опции сортировки
+def print_sorted_surname(data):
+    table = PrettyTable()
+    table.field_names = ["Фамилия"]
+
+    for user in data:
+        table.add_row([
+            user["surname"]
+        ])
+
+    print(table)
+
+def print_sorted_name(data):
+    table = PrettyTable()
+    table.field_names = ["Имя"]
+
+    for user in data:
+        table.add_row([
+            user["name"]
+        ])
+    print(table)
+
+def print_sorted_login(data):
+    table = PrettyTable()
+    table.field_names = ["Логин"]
+
+    for user in data:
+        table.add_row([
+            user["login"]
+        ])
+
+    print(table)
+
+# Функция для показа опции сортировки
+def sort_menu():
+    while True:
+        print("\033[96mСортировка:\033[0m")
+        print("1. По Фамилии")
+        print("2. По Имени")
+        print("3. По Логину")
+        print("4. Назад")
+        sort_choice = input("Выберите опцию сортировки: ")
+
+        if sort_choice == "1":
+            while True:
+                print("\nСортировка по фамилии:")
+                print("1. По возрастанию")
+                print("2. По убыванию")
+                print("3. Назад в меню сортировки")
+                order_choice = input("Выберите порядок сортировки: ")
+
+                if order_choice == "1":
+                    data.sort(key=lambda user: user["surname"])
+                    print_sorted_surname(data)
+                elif order_choice == "2":
+                    data.sort(key=lambda user: user["surname"], reverse=True)
+                    print_sorted_surname(data)
+                elif order_choice == "3":
+                    break
+                else:
+                    print("Неверный выбор порядка сортировки. Пожалуйста, выберите 1, 2 или 3.")
+        elif sort_choice == "2":
+            while True:
+                print("\nСортировка по имени:")
+                print("1. По возрастанию")
+                print("2. По убыванию")
+                print("3. Назад в меню сортировки")
+                order_choice = input("Выберите порядок сортировки: ")
+
+                if order_choice == "1":
+                    data.sort(key=lambda user: user["name"])
+                    print_sorted_name(data)
+                elif order_choice == "2":
+                    data.sort(key=lambda user: user["name"], reverse=True)
+                    print_sorted_name(data)
+                elif order_choice == "3":
+                    break
+                else:
+                    print("Неверный выбор порядка сортировки. Пожалуйста, выберите 1, 2 или 3.")
+        elif sort_choice == "3":
+            while True:
+                print("\nСортировка по логину:")
+                print("1. По возрастанию")
+                print("2. По убыванию")
+                print("3. Назад в меню сортировки")
+                order_choice = input("Выберите порядок сортировки: ")
+
+                if order_choice == "1":
+                    data.sort(key=lambda user: user["login"])
+                    print_sorted_login(data)
+                elif order_choice == "2":
+                    data.sort(key=lambda user: user["login"], reverse=True)
+                    print_sorted_login(data)
+                elif order_choice == "3":
+                    break
+                else:
+                    print("Неверный выбор порядка сортировки. Пожалуйста, выберите 1, 2 или 3.")
+        elif sort_choice == "4":
+            break
+        else:
+            print("Неверный выбор сортировки. Пожалуйста, выберите 1, 2, 3 или 4.")
+
+def filter_active_users(data):
+    print("\033[96mАктивные пользователи:\033[0m")
+    active_users = [user for user in data if user['status'] == 'active']
+    if not active_users:
+        print("Нет активных пользователей.")
+    else:
+        display_users1(active_users)
+
+def filter_inactive_users(data):
+    print("\033[96mНеактивные пользователи:\033[0m")
+    inactive_users = [user for user in data if user['status'] == 'inactive']
+    if not inactive_users:
+        print("Нет неактивных пользователей.")
+    else:
+        display_users1(inactive_users)
+
+
+def filter_admins(data):
+    print("\033[96mАдминистраторы:\033[0m")
+    admins = [user for user in data if user['role'] == 1]
+    if not admins:
+        print("Нет администраторов.")
+    else:
+        display_users2(admins)
+
+def filter_users(data):
+    print("\033[96mПользователи:\033[0m")
+    admins = [user for user in data if user['role'] == 0]
+    if not admins:
+        print("Нет пользователей.")
+    else:
+        display_users2(admins)
+
+# Функция для поиска данных по введенному слову
+def search_data_by_word(data, search_query):
+    results = []
+
+    for user in data:
+        user_info = [str(user["id"]), user["surname"], user["name"], user["login"], user["password"],
+                     "Администратор" if user["role"] == 1 else "Пользователь",
+                     "Включен" if user["status"] == "active" else "Отключен"]
+
+        for field in user_info:
+            if search_query in field:
+                results.append(user_info)
+                break
+
+    return results
+
+
+def search_by_word(data):
+    search_query = input("Введите слово для поиска: ")
+    results = search_data_by_word(data, search_query)
+
+    if results:
+        table = PrettyTable()
+        table.field_names = ["ID", "Фамилия", "Имя", "Логин", "Пароль", "Роль", "Статус"]
+
+        for user_info in results:
+            table.add_row(user_info)
+
+        print("Найдены пользователи, чьи атрибуты содержат введенное слово:")
+        print(table)
+    else:
+        print("Нет совпадений.")
+
+
+def display_users1(users):
+    # В этой функции можно отобразить информацию о пользователях (например, используя PrettyTable)
+    # Примерно так:
+    table = PrettyTable()
+    table.field_names = ["ID", "Фамилия", "Имя", "Логин", "Статус"]
+    for user in users:
+        table.add_row([user['id'], user['surname'], user['name'], user['login'], user['status']])
+    print(table)
+
+def display_users2(users):
+    # В этой функции можно отобразить информацию о пользователях (например, используя PrettyTable)
+    # Примерно так:
+    table = PrettyTable()
+    table.field_names = ["ID", "Фамилия", "Имя", "Логин", "Роль"]
+    for user in users:
+        role = "Администратор" if user["role"] == 1 else "Пользователь"
+        table.add_row([user['id'], user['surname'], user['name'], user['login'], role])
+    print(table)
+
+
+def filter_menu():
+    while True:
+        print("\033[96mФильтрация:\033[0m")
+        print("1. Активные пользователи")  # Опция для фильтрации активных пользователей
+        print("2. Отключенные пользователи")  # Опция для фильтрации отключенных пользователей
+        print("3. Администраторы")  # Опция для фильтрации администраторов
+        print("4. Пользователи")  # Опция для фильтрации обычных пользователей
+        print("5. Назад")  # Опция для выхода из меню фильтрации
+        filter_choice = input("Выберите опцию фильтрации: ")
+
+        if filter_choice == "1":
+            filter_active_users(data)
+            pass
+        elif filter_choice == "2":
+            filter_inactive_users(data)
+            pass
+        elif filter_choice == "3":
+            filter_admins(data)
+            pass
+        elif filter_choice == "4":
+            filter_users(data)
+            pass
+        elif filter_choice == "5":
+            break  # Выход из меню фильтрации
+        else:
+            print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4 или 5.")
+
+
+# Функция для выбора сортировка/фильтрация
+def sort_or_filtr():
+    while True:
+        print("1. Сортировка")
+        print("2. Фильтрация")
+        print("3. Поиск")
+        print("4. Назад")
+        option_choice = input("Выберите опцию: ")
+
+        if option_choice == "1":
+            sort_menu()
+            pass
+        elif option_choice == "2":
+            filter_menu()
+            pass
+        elif option_choice == "3":
+            search_by_word(data)
+            pass
+        elif option_choice == "4":
+            break
+        else:
+            print("Неверный выбор. Пожалуйста, выберите 1, 2, 3 или 4.")
+    pass
 
 
 def print_sorted_surname(data):
@@ -464,6 +712,7 @@ def admin_menu(data):
         elif choice == "6":
             view_stats_menu(data)
         elif choice == "7":
+            logout_user(data)
             break
         else:
             print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
@@ -471,15 +720,20 @@ def admin_menu(data):
 # Функция для вывода информации о времени продолжительности работы пользователя
 def view_work_duration(user_to_view_duration):
     if user_to_view_duration:
-        login_time = user_to_view_duration["last_login_time"]
+        login_time = user_to_view_duration.get("login_time", None)
         if login_time:
-            login_time = datetime.strptime(login_time, "%Y-%m-%d %H:%M:%S")
-            current_time = datetime.now()
-            duration = current_time - login_time
+            login_time = datetime.datetime.strptime(login_time, "%Y-%m-%d %H:%M:%S")
+            current_time = datetime.datetime.now()
+            logout_time = user_to_view_duration.get("logout_time")
+            if logout_time:
+                logout_time = datetime.datetime.strptime(logout_time, "%Y-%m-%d %H:%M:%S")
+            else:
+                logout_time = current_time
+            duration = logout_time - login_time
             hours, remainder = divmod(duration.total_seconds(), 3600)
             minutes, seconds = divmod(remainder, 60)
             duration_str = f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
-            print(f"Пользователь с логином '{user_to_view_duration['login']}' последний раз вошел в {login_time}, и он был в системе {duration_str}.")
+            print(f"Пользователь с логином '{user_to_view_duration['login']}' вошел в {login_time}, вышел в {logout_time}, и он был в системе {duration_str}.")
         else:
             print(f"Пользователь с логином '{user_to_view_duration['login']}' еще не входил в систему.")
     else:
@@ -498,8 +752,7 @@ def view_stats_menu(data):
             pass
         elif choice == "2":
             view_users(data)
-            login_to_view_duration = input(
-            "Введите логин пользователя для просмотра продолжительности работы (или нажмите Enter для отмены): ")
+            login_to_view_duration = input("Введите логин пользователя для просмотра продолжительности работы (или нажмите Enter для отмены): ")
             user_to_view_duration = next((user for user in data if user["login"] == login_to_view_duration), None)
             view_work_duration(user_to_view_duration)
             pass
