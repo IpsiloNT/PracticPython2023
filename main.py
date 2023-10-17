@@ -192,6 +192,39 @@ def change_user_data(data):
         print(f"Пользователь с логином '{login_to_change}' не найден.")
 
 
+def print_sorted_surname(data):
+    table = PrettyTable()
+    table.field_names = ["Фамилия"]
+
+    for user in data:
+        table.add_row([
+            user["surname"]
+        ])
+
+    print(table)
+
+def print_sorted_name(data):
+    table = PrettyTable()
+    table.field_names = ["Имя"]
+
+    for user in data:
+        table.add_row([
+            user["name"]
+        ])
+
+    print(table)
+
+def print_sorted_login(data):
+    table = PrettyTable()
+    table.field_names = ["Логин"]
+
+    for user in data:
+        table.add_row([
+            user["login"]
+        ])
+
+    print(table)
+
 # Функция для показа опции сортировки
 def sort_menu():
     while True:
@@ -211,10 +244,12 @@ def sort_menu():
                 order_choice = input("Выберите порядок сортировки: ")
 
                 if order_choice == "1":
-                    # TODO реализовать сортировку по фамилии (возрастанию)
+                    data.sort(key=lambda user: user["surname"])
+                    print_sorted_surname(data)
                     pass
                 elif order_choice == "2":
-                    # TODO реализовать сортировку по фамилии (убыванию)
+                    data.sort(key=lambda user: user["surname"], reverse=True)
+                    print_sorted_surname(data)
                     pass
                 elif order_choice == "3":
                     break
@@ -229,10 +264,12 @@ def sort_menu():
                 order_choice = input("Выберите порядок сортировки: ")
 
                 if order_choice == "1":
-                    # TODO реализовать сортировку по имени (возрастанию)
+                    data.sort(key=lambda user: user["name"])
+                    print_sorted_name(data)
                     pass
                 elif order_choice == "2":
-                    # TODO реализовать сортировку по имени (убыванию)
+                    data.sort(key=lambda user: user["name"], reverse=True)
+                    print_sorted_name(data)
                     pass
                 elif order_choice == "3":
                     break
@@ -248,10 +285,12 @@ def sort_menu():
                 order_choice = input("Выберите порядок сортировки: ")
 
                 if order_choice == "1":
-                    # TODO реализовать сортировку по логину (возрастанию)
+                    data.sort(key=lambda user: user["login"])
+                    print_sorted_login(data)
                     pass
                 elif order_choice == "2":
-                    # TODO реализовать сортировку по логину (убыванию)
+                    data.sort(key=lambda user: user["login"], reverse=True)
+                    print_sorted_login(data)
                     pass
                 elif order_choice == "3":
                     break
