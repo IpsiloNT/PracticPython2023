@@ -680,8 +680,9 @@ def view_stats_login(data):
         user = next((user for user in data if user["login"] == user_login), None)
 
         if user:
+            login_count = user.get('login_count', 0)
             print(f"Статистика входов для пользователя с логином '{user_login}':")
-            print(f"Всего входов: {user['login_count']}")
+            print(f"Всего входов: {login_count}")
         else:
             print(f"Пользователь с логином '{user_login}' не найден.")
 
