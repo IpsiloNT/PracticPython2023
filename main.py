@@ -37,28 +37,23 @@ def authenticate(data):
                 continue
 
             print(f"Вы вошли как {'Администратор' if user['role'] == 1 else 'Пользователь'}")
-
-            # Увеличение счетчика входов для пользователя
             user["login_count"] += 1
-
+            user["login_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             user["logout_time"] = None
             save_data(data)
 
             if user["role"] == 1:
-                admin_menu(data)
+                admin_menu(data, user_login)
             break
 
         else:
             print("Ошибка авторизации. Проверьте логин и пароль.")
 
-def logout_user(data):
-    user_login = input("Введите логин пользователя для выхода: ")
+def logout_user(data, user_login):
     user = next((user for user in data if user["login"] == user_login), None)
     if user:
         user["logout_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         save_data(data)
-    else:
-        print(f"Пользователь с логином '{user_login}' не найден.")
 
 
 # Функция для отображения данных всех пользователей через PrettyTable
@@ -674,7 +669,7 @@ def sort_or_filtr():
     pass
 
 # Функция для админ меню
-def admin_menu(data):
+def admin_menu(data, user_login):
     while True:
         print("\033[96m1.\033[0m Посмотреть данные пользователей")
         print("\033[96m2.\033[0m Добавить нового пользователя")
@@ -699,7 +694,7 @@ def admin_menu(data):
         elif choice == "6":
             view_stats_menu(data)
         elif choice == "7":
-            logout_user(data)
+            logout_user(data, user_login)  # Вызов функции logout_user при выходе
             break
         else:
             print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
