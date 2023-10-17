@@ -192,7 +192,7 @@ def change_user_data(data):
         print(f"Пользователь с логином '{login_to_change}' не найден.")
 
 
-# Function to display the sorting menu
+# Функция для показа опции сортировки
 def sort_menu():
     while True:
         print("\033[96mСортировка:\033[0m")
@@ -211,10 +211,10 @@ def sort_menu():
                 order_choice = input("Выберите порядок сортировки: ")
 
                 if order_choice == "1":
-                    # Implement sorting by last name in ascending order
+                    # TODO реализовать сортировку по фамилии (возрастанию)
                     pass
                 elif order_choice == "2":
-                    # Implement sorting by last name in descending order
+                    # TODO реализовать сортировку по фамилии (убыванию)
                     pass
                 elif order_choice == "3":
                     break
@@ -263,7 +263,7 @@ def sort_menu():
         else:
             print("Неверный выбор сортировки. Пожалуйста, выберите 1, 2, 3 или 4.")
 
-
+# Функция для выбора сортировка/фильтрация
 def sort_or_filtr():
     while True:
         print("1. Сортировка")
@@ -313,6 +313,7 @@ def admin_menu(data):
         else:
             print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
 
+# Функция для вывода информации о времени продолжительности работы пользователя
 def view_work_duration(user_to_view_duration):
     if user_to_view_duration:
         login_time = user_to_view_duration["last_login_time"]
@@ -329,6 +330,7 @@ def view_work_duration(user_to_view_duration):
     else:
         print("Пользователь не найден.")
 
+# Функция для показа меню с выбором типа статистики
 def view_stats_menu(data):
     while True:
         print("\033[96m1.\033[0m По входам в систему")
