@@ -166,6 +166,13 @@ def change_user_data(data):
         new_login = input(f"Новый логин ({user_to_change['login']}): ")
 
         while True:
+            if check_user_existence(new_login, data):
+                print("Пользователь с таким логином уже существует.")
+                new_login = input("Пожалуйста, введите другой логин: ")
+            else:
+                break
+
+        while True:
             new_password = input(f"Новый пароль ({user_to_change['password']}): ")
             if new_password and len(new_password) < 6:
                 print("Пароль должен содержать как минимум 6 символов.")
@@ -177,10 +184,7 @@ def change_user_data(data):
         if new_first_name:
             user_to_change['name'] = new_first_name
         if new_login:
-            if check_user_existence(new_login, data):
-                print("Пользователь с таким логином уже существует.")
-            else:
-                user_to_change['login'] = new_login
+            user_to_change['login'] = new_login
         if new_password:
             user_to_change['password'] = new_password
 
@@ -189,7 +193,6 @@ def change_user_data(data):
         view_users(data)
     elif login_to_change:
         print(f"Пользователь с логином '{login_to_change}' не найден.")
-
 
 # Функция для показа опции сортировки
 def print_sorted_surname(data):
@@ -668,6 +671,20 @@ def sort_or_filtr():
             print("Неверный выбор. Пожалуйста, выберите 1, 2, 3 или 4.")
     pass
 
+def view_stats_login(data):
+    while True:
+        user_login = input("Введите логин пользователя, статистику которого вы хотите посмотреть (или нажмите Enter для отмены): ")
+        if not user_login:
+            return
+
+        user = next((user for user in data if user["login"] == user_login), None)
+
+        if user:
+            print(f"Статистика входов для пользователя с логином '{user_login}':")
+            print(f"Всего входов: {user['login_count']}")
+        else:
+            print(f"Пользователь с логином '{user_login}' не найден.")
+
 # Функция для админ меню
 def admin_menu(data, user_login):
     while True:
@@ -730,7 +747,8 @@ def view_stats_menu(data):
         choice = input("Выберите тип статистики: ")
 
         if choice == "1":
-            # TODO: Реализовать код для просмотра статистики по входам в систему
+            view_users(data)
+            view_stats_login(data)
             pass
         elif choice == "2":
             view_users(data)

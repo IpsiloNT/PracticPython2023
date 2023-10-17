@@ -7,9 +7,9 @@
         "password": "d",
         "role": 1,
         "status": "active",
-        "login_count": 69,
-        "login_time": "2023-10-18 01:27:14",
-        "logout_time": null
+        "login_count": 73,
+        "login_time": "2023-10-18 01:41:58",
+        "logout_time": "2023-10-18 01:45:13"
     },
     {
         "id": 2,
@@ -20,5 +20,15 @@
         "role": 1,
         "status": "active",
         "login_count": 2
+    },
+    {
+        "id": 3,
+        "surname": "",
+        "name": "",
+        "login": "ddd",
+        "password": "dddddd",
+        "role": 0,
+        "status": "active",
+        "login_count": 0
     }
 ]
