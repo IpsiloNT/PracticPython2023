@@ -185,6 +185,96 @@ def change_user_data(data):
     elif login_to_change:
         print(f"Пользователь с логином '{login_to_change}' не найден.")
 
+def sort_menu():
+    while True:
+        print("\033[96mСортировка:\033[0m")
+        print("1. По Фамилии")
+        print("2. По Имени")
+        print("3. По Логину")
+        print("4. Назад")
+        sort_choice = input("Выберите опцию сортировки: ")
+
+        if sort_choice == "1":
+            while True:
+                print("\nСортировка по фамилии:")
+                print("1. По возрастанию")
+                print("2. По убыванию")
+                print("3. Назад в меню сортировки")
+                order_choice = input("Выберите порядок сортировки: ")
+
+                if order_choice == "1":
+                    # Implement sorting by last name in ascending order
+                    pass
+                elif order_choice == "2":
+                    # Implement sorting by last name in descending order
+                    pass
+                elif order_choice == "3":
+                    break
+                else:
+                    print("Неверный выбор порядка сортировки. Пожалуйста, выберите 1, 2 или 3.")
+        elif sort_choice == "2":
+            while True:
+                print("\nСортировка по имени:")
+                print("1. По возрастанию")
+                print("2. По убыванию")
+                print("3. Назад в меню сортировки")
+                order_choice = input("Выберите порядок сортировки: ")
+
+                if order_choice == "1":
+                    # TODO реализовать сортировку по имени (возрастанию)
+                    pass
+                elif order_choice == "2":
+                    # TODO реализовать сортировку по имени (убыванию)
+                    pass
+                elif order_choice == "3":
+                    break
+                else:
+                    print("Неверный выбор порядка сортировки. Пожалуйста, выберите 1, 2 или 3.")
+            pass
+        elif sort_choice == "3":
+            while True:
+                print("\nСортировка по логину:")
+                print("1. По возрастанию")
+                print("2. По убыванию")
+                print("3. Назад в меню сортировки")
+                order_choice = input("Выберите порядок сортировки: ")
+
+                if order_choice == "1":
+                    # TODO реализовать сортировку по логину (возрастанию)
+                    pass
+                elif order_choice == "2":
+                    # TODO реализовать сортировку по логину (убыванию)
+                    pass
+                elif order_choice == "3":
+                    break
+                else:
+                    print("Неверный выбор порядка сортировки. Пожалуйста, выберите 1, 2 или 3.")
+            pass
+        elif sort_choice == "4":
+            break
+        else:
+            print("Неверный выбор сортировки. Пожалуйста, выберите 1, 2, 3 или 4.")
+
+
+def sort_or_filtr():
+    while True:
+        print("1. Сортировка")
+        print("2. Фильтрация")
+        print("3. Назад")
+        option_choice = input("Выберите опцию: ")
+
+        if option_choice == "1":
+            sort_menu()
+            pass
+        elif option_choice == "2":
+            # Вызов меню фильтрации
+            pass
+        elif option_choice == "3":
+            break
+        else:
+            print("Неверный выбор порядка сортировки. Пожалуйста, выберите 1, 2 или 3.")
+    pass
+
 # Функция для администраторского меню
 def admin_menu(data):
     while True:
@@ -199,6 +289,7 @@ def admin_menu(data):
 
         if choice == "1":
             view_users(data)
+            sort_or_filtr()
         elif choice == "2":
             add_user(data)
         elif choice == "3":
