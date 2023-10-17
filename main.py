@@ -44,7 +44,8 @@ def authenticate(data):
 
             if user["role"] == 1:
                 admin_menu(data, user_login)
-            break
+            elif user["role"] == 0:
+                user_menu(data, user_login)
 
         else:
             print("Ошибка авторизации. Проверьте логин и пароль.")
@@ -685,6 +686,19 @@ def view_stats_login(data):
             print(f"Всего входов: {login_count}")
         else:
             print(f"Пользователь с логином '{user_login}' не найден.")
+
+def user_menu(data, user_login):
+    while True:
+        print("\033[96m1.\033[0m Сформировать документ (заполнение через диалоговое окно)")
+        print("\033[96m2.\033[0m Выход")
+        choice = input("Выберите действие: ")
+        if choice == "1":
+            break
+        if choice == "2":
+            break
+        else:
+            print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
+
 
 # Функция для админ меню
 def admin_menu(data, user_login):
