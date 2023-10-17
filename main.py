@@ -1,5 +1,6 @@
 import json
 from prettytable import PrettyTable
+from datetime import datetime
 
 # Функция для загрузки данных из JSON-файла
 def load_data():
@@ -9,9 +10,9 @@ def load_data():
     except (FileNotFoundError, json.decoder.JSONDecodeError):
         data = []
 
-    # Добавьте поле "login_count" со значением 0, если его нет
     for user in data:
         user.setdefault("login_count", 0)
+        user.setdefault("last_login_time", None)
 
     return data
 
@@ -38,6 +39,9 @@ def authenticate(data):
                 print("Вы не можете войти, так как вы отключены от системы. Обратитесь к администратору.")
                 continue
 
+            # Обновление времени последнего входа
+            user["last_login_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
             print(f"Вы вошли как {'Администратор' if user['role'] == 1 else 'Пользователь'}")
 
             # Увеличение счетчика входов для пользователя
@@ -49,10 +53,11 @@ def authenticate(data):
             if user["role"] == 1:
                 admin_menu(data)
             break
+
         else:
             print("Ошибка авторизации. Проверьте логин и пароль.")
 
-# Функция для отображения данных всех пользователей с использованием PrettyTable
+# Функция для отображения данных всех пользователей через PrettyTable
 def view_users(data):
     if not data:
         print("Нет зарегистрированных пользователей.")
@@ -187,7 +192,179 @@ def change_user_data(data):
         print(f"Пользователь с логином '{login_to_change}' не найден.")
 
 
-# Функция для администраторского меню
+# Function to display the sorting menu
+def sort_menu():
+    while True:
+        print("\033[96mСортировка:\033[0m")
+        print("1. По Фамилии")
+        print("2. По Имени")
+        print("3. По Логину")
+        print("4. Назад")
+        sort_choice = input("Выберите опцию сортировки: ")
+
+        if sort_choice == "1":
+            while True:
+                print("\nСортировка по фамилии:")
+                print("1. По возрастанию")
+                print("2. По убыванию")
+                print("3. Назад в меню сортировки")
+                order_choice = input("Выберите порядок сортировки: ")
+
+                if order_choice == "1":
+                    # Implement sorting by last name in ascending order
+                    pass
+                elif order_choice == "2":
+                    # Implement sorting by last name in descending order
+                    pass
+                elif order_choice == "3":
+                    break
+                else:
+                    print("Неверный выбор порядка сортировки. Пожалуйста, выберите 1, 2 или 3.")
+        elif sort_choice == "2":
+            while True:
+                print("\nСортировка по имени:")
+                print("1. По возрастанию")
+                print("2. По убыванию")
+                print("3. Назад в меню сортировки")
+                order_choice = input("Выберите порядок сортировки: ")
+
+                if order_choice == "1":
+                    # TODO реализовать сортировку по имени (возрастанию)
+                    pass
+                elif order_choice == "2":
+                    # TODO реализовать сортировку по имени (убыванию)
+                    pass
+                elif order_choice == "3":
+                    break
+                else:
+                    print("Неверный выбор порядка сортировки. Пожалуйста, выберите 1, 2 или 3.")
+            pass
+        elif sort_choice == "3":
+            while True:
+                print("\nСортировка по логину:")
+                print("1. По возрастанию")
+                print("2. По убыванию")
+                print("3. Назад в меню сортировки")
+                order_choice = input("Выберите порядок сортировки: ")
+
+                if order_choice == "1":
+                    # TODO реализовать сортировку по логину (возрастанию)
+                    pass
+                elif order_choice == "2":
+                    # TODO реализовать сортировку по логину (убыванию)
+                    pass
+                elif order_choice == "3":
+                    break
+                else:
+                    print("Неверный выбор порядка сортировки. Пожалуйста, выберите 1, 2 или 3.")
+            pass
+        elif sort_choice == "4":
+            break
+        else:
+            print("Неверный выбор сортировки. Пожалуйста, выберите 1, 2, 3 или 4.")
+
+def filter_active_users(data):
+    print("\033[96mАктивные пользователи:\033[0m")
+    active_users = [user for user in data if user['status'] == 'active']
+    if not active_users:
+        print("Нет активных пользователей.")
+    else:
+        display_users1(active_users)
+
+def filter_inactive_users(data):
+    print("\033[96mНеактивные пользователи:\033[0m")
+    inactive_users = [user for user in data if user['status'] == 'inactive']
+    if not inactive_users:
+        print("Нет неактивных пользователей.")
+    else:
+        display_users1(inactive_users)
+
+
+def filter_admins(data):
+    print("\033[96mАдминистраторы:\033[0m")
+    admins = [user for user in data if user['role'] == 1]
+    if not admins:
+        print("Нет администраторов.")
+    else:
+        display_users2(admins)
+
+def filter_users(data):
+    print("\033[96mПользователи:\033[0m")
+    admins = [user for user in data if user['role'] == 0]
+    if not admins:
+        print("Нет пользователей.")
+    else:
+        display_users2(admins)
+
+
+def display_users1(users):
+    # В этой функции можно отобразить информацию о пользователях (например, используя PrettyTable)
+    # Примерно так:
+    table = PrettyTable()
+    table.field_names = ["ID", "Фамилия", "Имя", "Логин", "Статус"]
+    for user in users:
+        table.add_row([user['id'], user['surname'], user['name'], user['login'], user['status']])
+    print(table)
+
+def display_users2(users):
+    # В этой функции можно отобразить информацию о пользователях (например, используя PrettyTable)
+    # Примерно так:
+    table = PrettyTable()
+    table.field_names = ["ID", "Фамилия", "Имя", "Логин", "Роль"]
+    for user in users:
+        role = "Администратор" if user["role"] == 1 else "Пользователь"
+        table.add_row([user['id'], user['surname'], user['name'], user['login'], role])
+    print(table)
+
+
+def filter_menu():
+    while True:
+        print("\033[96mФильтрация:\033[0m")
+        print("1. Активные пользователи")  # Опция для фильтрации активных пользователей
+        print("2. Отключенные пользователи")  # Опция для фильтрации отключенных пользователей
+        print("3. Администраторы")  # Опция для фильтрации администраторов
+        print("4. Пользователи")  # Опция для фильтрации обычных пользователей
+        print("5. Назад")  # Опция для выхода из меню фильтрации
+        filter_choice = input("Выберите опцию фильтрации: ")
+
+        if filter_choice == "1":
+            filter_active_users(data)
+            pass
+        elif filter_choice == "2":
+            filter_inactive_users(data)
+            pass
+        elif filter_choice == "3":
+            filter_admins(data)
+            pass
+        elif filter_choice == "4":
+            filter_users(data)
+            pass
+        elif filter_choice == "5":
+            break  # Выход из меню фильтрации
+        else:
+            print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4 или 5.")
+
+
+def sort_or_filtr():
+    while True:
+        print("1. Сортировка")
+        print("2. Фильтрация")
+        print("3. Назад")
+        option_choice = input("Выберите опцию: ")
+
+        if option_choice == "1":
+            sort_menu()
+            pass
+        elif option_choice == "2":
+            filter_menu()
+            pass
+        elif option_choice == "3":
+            break
+        else:
+            print("Неверный выбор порядка сортировки. Пожалуйста, выберите 1, 2 или 3.")
+    pass
+
+# Функция для админ меню
 def admin_menu(data):
     while True:
         print("\033[96m1.\033[0m Посмотреть данные пользователей")
@@ -195,11 +372,13 @@ def admin_menu(data):
         print("\033[96m3.\033[0m Удалить пользователя")
         print("\033[96m4.\033[0m Изменить данные пользователя")
         print("\033[96m5.\033[0m Изменить статус пользователя (включен/отключен)")
-        print("\033[96m6.\033[0m Выход")
+        print("\033[96m6.\033[0m Просмотр статистики")
+        print("\033[96m7.\033[0m Выход")
         choice = input("Выберите действие: ")
 
         if choice == "1":
             view_users(data)
+            sort_or_filtr()
         elif choice == "2":
             add_user(data)
         elif choice == "3":
@@ -209,9 +388,49 @@ def admin_menu(data):
         elif choice == "5":
             change_user_status(data)
         elif choice == "6":
+            view_stats_menu(data)
+        elif choice == "7":
             break
         else:
-            print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5 или 6.")
+            print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
+
+def view_work_duration(user_to_view_duration):
+    if user_to_view_duration:
+        login_time = user_to_view_duration["last_login_time"]
+        if login_time:
+            login_time = datetime.strptime(login_time, "%Y-%m-%d %H:%M:%S")
+            current_time = datetime.now()
+            duration = current_time - login_time
+            hours, remainder = divmod(duration.total_seconds(), 3600)
+            minutes, seconds = divmod(remainder, 60)
+            duration_str = f"{int(hours):02d}:{int(minutes):02d}:{int(seconds):02d}"
+            print(f"Пользователь с логином '{user_to_view_duration['login']}' последний раз вошел в {login_time}, и он был в системе {duration_str}.")
+        else:
+            print(f"Пользователь с логином '{user_to_view_duration['login']}' еще не входил в систему.")
+    else:
+        print("Пользователь не найден.")
+
+def view_stats_menu(data):
+    while True:
+        print("\033[96m1.\033[0m По входам в систему")
+        print("\033[96m2.\033[0m По продолжительности работы пользователей")
+        print("\033[96m3.\033[0m Выход")
+        choice = input("Выберите тип статистики: ")
+
+        if choice == "1":
+            # TODO: Реализовать код для просмотра статистики по входам в систему
+            pass
+        elif choice == "2":
+            view_users(data)
+            login_to_view_duration = input(
+            "Введите логин пользователя для просмотра продолжительности работы (или нажмите Enter для отмены): ")
+            user_to_view_duration = next((user for user in data if user["login"] == login_to_view_duration), None)
+            view_work_duration(user_to_view_duration)
+            pass
+        elif choice == "3":
+            break
+        else:
+            print("Неверный выбор. Пожалуйста, выберите 1, 2 или 3.")
 
 # Основной цикл программы
 while True:
