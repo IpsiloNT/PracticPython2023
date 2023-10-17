@@ -264,6 +264,39 @@ def sort_menu():
             print("Неверный выбор сортировки. Пожалуйста, выберите 1, 2, 3 или 4.")
 
 
+# Функция для поиска данных по введенному слову
+def search_data_by_word(data, search_query):
+    results = []
+
+    for user in data:
+        user_info = [str(user["id"]), user["surname"], user["name"], user["login"], user["password"],
+                     "Администратор" if user["role"] == 1 else "Пользователь",
+                     "Включен" if user["status"] == "active" else "Отключен"]
+
+        for field in user_info:
+            if search_query in field:
+                results.append(user_info)
+                break
+
+    return results
+
+
+def search_by_word(data):
+    search_query = input("Введите слово для поиска: ")
+    results = search_data_by_word(data, search_query)
+
+    if results:
+        table = PrettyTable()
+        table.field_names = ["ID", "Фамилия", "Имя", "Логин", "Пароль", "Роль", "Статус"]
+
+        for user_info in results:
+            table.add_row(user_info)
+
+        print("Найдены пользователи, чьи атрибуты содержат введенное слово:")
+        print(table)
+    else:
+        print("Нет совпадений.")
+
 def sort_or_filtr():
     while True:
         print("1. Сортировка")
@@ -279,7 +312,7 @@ def sort_or_filtr():
             # Вызов меню фильтрации
             pass
         elif option_choice == "3":
-            # Вызов меню поиска
+            search_by_word(data)
             pass
         elif option_choice == "4":
             break
