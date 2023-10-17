@@ -268,7 +268,8 @@ def sort_or_filtr():
     while True:
         print("1. Сортировка")
         print("2. Фильтрация")
-        print("3. Назад")
+        print("3. Поиск")
+        print("4. Назад")
         option_choice = input("Выберите опцию: ")
 
         if option_choice == "1":
@@ -278,9 +279,12 @@ def sort_or_filtr():
             # Вызов меню фильтрации
             pass
         elif option_choice == "3":
+            # Вызов меню поиска
+            pass
+        elif option_choice == "4":
             break
         else:
-            print("Неверный выбор порядка сортировки. Пожалуйста, выберите 1, 2 или 3.")
+            print("Неверный выбор. Пожалуйста, выберите 1, 2, 3 или 4.")
     pass
 
 # Функция для админ меню
