@@ -7,25 +7,22 @@
         "password": "d",
         "role": 1,
         "status": "active",
-        "login_count": 4
+        "login_count": 43,
+        "login_time": "2023-10-16 19:50:51",
+        "logout_time": "2023-10-16 19:51:17",
+        "last_login_time": "2023-10-17 13:38:07"
     },
     {
         "id": 2,
         "surname": "awd",
         "name": "awd",
         "login": "d",
-        "password": "aaaaaa",
+        "password": "d",
         "role": 1,
         "status": "active",
-        "login_count": 1
-    },
-    {
-        "id": 3,
-        "surname": "",
-        "name": "",
-        "login": "1",
-        "password": "awfawfawf",
-        "role": 0,
-        "status": "inactive"
+        "login_count": 2,
+        "login_time": "2023-10-16 19:51:21",
+        "logout_time": null,
+        "last_login_time": null
     }
 ]
