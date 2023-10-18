@@ -3,6 +3,7 @@ from prettytable import PrettyTable
 from datetime import datetime
 from docx import Document
 from docx2pdf import convert
+import pandas as pd
 
 # Функция для загрузки данных из JSON-файла
 def load_data():
@@ -693,24 +694,10 @@ def input_field(prompt):
     return input(prompt)
 
 def get_user_input():
-    delivery_num = input_field("Введите номер поставки (только цифры): ")
-    while not delivery_num.isdigit:
-        print("Номер поставки должен содержать только цифры. Пожалуйста, введите его заново.")
-        delivery_num = input_field("Введите номер поставки (только цифры): ")
-
-    day = input_field("Введите день договора числом: ")
-    while not day.isdigit() or not (1 <= int(day) <= 31):
-        print("День должен быть числом от 1 до 31. Пожалуйста, введите его заново.")
-        day = input_field("Введите день договора числом: ")
-
-    month = input_field("Введите месяц договора числом: ")
-    while not month.isdigit() or not (1 <= int(month) <= 12):
-        print("Месяц должен быть числом от 1 до 12. Пожалуйста, введите его заново.")
-        month = input_field("Введите месяц договора числом: ")
     fields = {
-        "delivery_num": delivery_num,
-        "day": day,
-        "month": month,
+        "delivery_num": input_field("Введите номер поставки (только цифры): "),
+        "day": input_field("Введите день договора числом: "),
+        "month": input_field("Введите месяц договора числом: "),
         "name_company": input_field("Введите название компании поставщика: "),
         "index": input_field("Введите индекс поставщика: "),
         "region": input_field("Введите название региона: "),
@@ -732,6 +719,16 @@ def get_user_input():
     }
     return fields
 
+def save_to_excel(data):
+    df = pd.DataFrame(data, index=[0])  # Create a DataFrame with one row
+    try:
+        existing_data = pd.read_excel("user_data.xlsx")
+        df = pd.concat([existing_data, df], ignore_index=True)
+    except FileNotFoundError:
+        pass
+
+    df.to_excel("user_data.xlsx", index=False)
+
 def fill_document(doc, fields):
     for paragraph in doc.paragraphs:
         for field, value in fields.items():
@@ -751,7 +748,6 @@ def fill_document(doc, fields):
 def save_document(doc, filename):
     doc.save(filename)
 
-
 def user_menu(data, user_login):
     while True:
         print("\033[96m1.\033[0m Сформировать документ (заполнение через диалоговое окно)")
@@ -762,16 +758,17 @@ def user_menu(data, user_login):
             doc = Document("шаблон.docx")
             fill_document(doc, fields)
             docx_filename = "заполненный_документ.docx"
-            save_document(doc, "заполненный_документ.docx")
+            save_document(doc, docx_filename)
             doc.save("заполненный_документ.docx")
-            convert(docx_filename)
-            print(f"Документ успешно создан и сохранен в форматах .pdf и .docx  с названиями заполненный_документ соответственно")
+            docx_file = "заполненный_документ.docx"
+            convert(docx_file)
+            print(f"Документ успешно создан и сохранен в формате .docx с названием 'заполненный_документ'")
+            save_to_excel(fields)
+            print("Данные успешно сохранены в Excel файл.")
         elif choice == "2":
             break
         else:
             print("Неверный выбор. Пожалуйста, выберите 1 или 2.")
-
-
 
 # Функция для админ меню
 def admin_menu(data, user_login):

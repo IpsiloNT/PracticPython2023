@@ -1,5 +1,17 @@
 [
     {
+        "id": 3,
+        "surname": "dd",
+        "name": "dd",
+        "login": "d",
+        "password": "d",
+        "role": 0,
+        "status": "active",
+        "login_count": 51,
+        "login_time": "2023-10-18 22:53:54",
+        "logout_time": null
+    },
+    {
         "id": 1,
         "surname": "d",
         "name": "d",
@@ -7,30 +19,8 @@
         "password": "d",
         "role": 1,
         "status": "active",
-        "login_count": 83,
-        "login_time": "2023-10-18 11:56:57",
-        "logout_time": "2023-10-18 11:57:12"
-    },
-    {
-        "id": 2,
-        "surname": "awd",
-        "name": "awd",
-        "login": "d",
-        "password": "d",
-        "role": 1,
-        "status": "active",
-        "login_count": 2
-    },
-    {
-        "id": 3,
-        "surname": "dd",
-        "name": "dd",
-        "login": "ddd",
-        "password": "dddddd",
-        "role": 0,
-        "status": "active",
-        "login_count": 14,
-        "login_time": "2023-10-18 13:15:04",
-        "logout_time": null
+        "login_count": 115,
+        "login_time": "2023-10-18 21:51:44",
+        "logout_time": "2023-10-18 21:51:47"
     }
 ]
