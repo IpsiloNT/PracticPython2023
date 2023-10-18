@@ -6,10 +6,11 @@ from docx2pdf import convert
 import pandas as pd
 import os
 
-# Функция для загрузки данных из JSON-файла
+JSON_FILE = "users.json"
+
 def load_data():
     try:
-        with open("users.json", "r") as f:
+        with open(JSON_FILE, "r") as f:
             data = json.load(f)
     except (FileNotFoundError, json.decoder.JSONDecodeError):
         data = []
@@ -18,16 +19,13 @@ def load_data():
         user.setdefault("login_count", 0)
     return data
 
-# Функция для сохранения данных в JSON-файл
 def save_data(data):
-    with open("users.json", "w") as f:
+    with open(JSON_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
-# Функция для проверки существования пользователя по логину
 def check_user_existence(login, data):
     return any(user["login"] == login for user in data)
 
-# Функция для авторизации пользователя
 def authenticate(data):
     while True:
         user_login = input("Введите логин: ")
@@ -60,8 +58,6 @@ def logout_user(data, user_login):
         user["logout_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         save_data(data)
 
-
-# Функция для отображения данных всех пользователей через PrettyTable
 def view_users(data):
     if not data:
         print("Нет зарегистрированных пользователей.")
@@ -75,7 +71,6 @@ def view_users(data):
             table.add_row([user["id"], user["surname"], user["name"], user["login"], user["password"], role, status])
         print(table)
 
-# Функция для добавления нового пользователя
 def add_user(data):
     last_name = input("Введите фамилию: ")
     first_name = input("Введите имя: ")
@@ -119,6 +114,7 @@ def add_user(data):
     save_data(data)
     print("Пользователь успешно добавлен в базу данных.")
     view_users(data)
+
 
 # Функция для изменения статуса пользователя
 def change_user_status(data):
@@ -760,10 +756,10 @@ def save_filled_document(fields, user_login):
     fill_document(doc, fields)
 
     current_datetime = datetime.now()
-    username = user_login  # Замените на логику извлечения имени пользователя
+    username = user_login
     formatted_datetime = current_datetime.strftime("%Y-%d-%m %H-%M-%S")
 
-    user_folder = create_user_folder(username)  # Создаем папку пользователя
+    user_folder = create_user_folder(username)
 
     docx_filename = f"{username} {formatted_datetime}.docx"
     pdf_filename = f"{username} {formatted_datetime}.pdf"
