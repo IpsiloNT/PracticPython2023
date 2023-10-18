@@ -4,6 +4,7 @@ from datetime import datetime
 from docx import Document
 from docx2pdf import convert
 import pandas as pd
+import os
 
 # Функция для загрузки данных из JSON-файла
 def load_data():
@@ -745,22 +746,36 @@ def fill_document(doc, fields):
                         if placeholder in paragraph.text:
                             paragraph.text = paragraph.text.replace(placeholder, value)
 
-
-def save_filled_document(fields, docx_filename):
-    doc = Document("шаблон.docx")
-    fill_document(doc, fields)
-    doc.save(docx_filename)
-    convert(docx_filename)
-
-
 def save_document(doc, filename):
     doc.save(filename)
 
-def save_filled_document(fields, docx_filename):
+def create_user_folder(username):
+    folder_name = os.path.join(os.getcwd(), username)  # Путь к папке с именем пользователя
+    if not os.path.exists(folder_name):
+        os.mkdir(folder_name)  # Создаем папку, если она не существует
+    return folder_name
+
+def save_filled_document(fields, user_login):
     doc = Document("шаблон.docx")
     fill_document(doc, fields)
-    doc.save(docx_filename)
-    convert(docx_filename)
+
+    current_datetime = datetime.now()
+    username = user_login  # Замените на логику извлечения имени пользователя
+    formatted_datetime = current_datetime.strftime("%Y-%d-%m %H-%M-%S")
+
+    user_folder = create_user_folder(username)  # Создаем папку пользователя
+
+    docx_filename = f"{username} {formatted_datetime}.docx"
+    pdf_filename = f"{username} {formatted_datetime}.pdf"
+
+    docx_path = os.path.join(user_folder, docx_filename)
+    pdf_path = os.path.join(user_folder, pdf_filename)
+
+    doc.save(docx_path)
+    convert(docx_path, pdf_path)
+
+    return docx_path
+
 
 def user_menu(data, user_login):
     while True:
@@ -770,13 +785,8 @@ def user_menu(data, user_login):
 
         if choice == "1":
             fields = get_user_input()
-            current_datetime = datetime.now()
-            username = user_login  # Замените на логику извлечения имени пользователя
-            formatted_datetime = current_datetime.strftime("%Y-%d-%m %H-%M-%S")
-            docx_filename = f"{username} {formatted_datetime}.docx"
-            pdf_filename = f"{username} {formatted_datetime}.pdf"
-            save_filled_document(fields, docx_filename)
-            print(f"Документ успешно создан и сохранен в форматах .docx и .pdf с названиями 'заполненный_документ'")
+            docx_filename = save_filled_document(fields, user_login)
+            print(f"Документ успешно создан и сохранен в формате .docx с именем '{docx_filename}' в папке пользователя.")
             save_to_excel(fields)
             print("Данные успешно сохранены в Excel файл.")
         elif choice == "2":
@@ -784,6 +794,11 @@ def user_menu(data, user_login):
         else:
             print("Неверный выбор. Пожалуйста, выберите 1 или 2.")
 
+def create_user_folder(username):
+    folder_name = os.path.join(os.getcwd(), username)  # Путь к папке с именем пользователя
+    if not os.path.exists(folder_name):
+        os.mkdir(folder_name)  # Создаем папку, если она не существует
+    return folder_name
 
 # Функция для админ меню
 def admin_menu(data, user_login):
