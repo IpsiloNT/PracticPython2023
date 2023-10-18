@@ -44,11 +44,12 @@ def authenticate(data):
             user["logout_time"] = None
             save_data(data)
 
+            log_user_entry(user_login, datetime.now())  # Записать время входа
+
             if user["role"] == 1:
                 admin_menu(data, user_login)
             elif user["role"] == 0:
                 user_menu(data, user_login)
-
         else:
             print("Ошибка авторизации. Проверьте логин и пароль.")
 
@@ -57,6 +58,8 @@ def logout_user(data, user_login):
     if user:
         user["logout_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         save_data(data)
+
+        log_user_exit(user_login, datetime.now())  # Записать время выхода
 
 
 # Функция для отображения данных всех пользователей через PrettyTable
@@ -205,14 +208,6 @@ def print_sorted_surname(data):
     for user in data:
         table.add_row([user["surname"]])
 
-    print(table)
-
-def print_sorted_name(data):
-    table = PrettyTable()
-    table.field_names = ["Имя"]
-
-    for user in data:
-        table.add_row([user["name"]])
     print(table)
 
 def print_sorted_login(data):
@@ -427,35 +422,29 @@ def sort_or_filter(data):
 
 def print_sorted_surname(data):
     table = PrettyTable()
-    table.field_names = ["Фамилия"]
+    table.field_names = ["ID", "Фамилия", "Имя", "Логин", "Пароль", "Роль"]
 
     for user in data:
-        table.add_row([
-            user["surname"]
-        ])
-
+        role = "Администратор" if user["role"] == 1 else "Пользователь"
+        table.add_row([user['id'], user['surname'], user['name'], user['login'], user['password'], role])
     print(table)
 
 def print_sorted_name(data):
     table = PrettyTable()
-    table.field_names = ["Имя"]
+    table.field_names = ["ID", "Фамилия", "Имя", "Логин", "Пароль", "Роль"]
 
     for user in data:
-        table.add_row([
-            user["name"]
-        ])
-
+        role = "Администратор" if user["role"] == 1 else "Пользователь"
+        table.add_row([user['id'], user['surname'], user['name'], user['login'], user['password'], role])
     print(table)
 
 def print_sorted_login(data):
     table = PrettyTable()
-    table.field_names = ["Логин"]
+    table.field_names = ["ID", "Фамилия", "Имя", "Логин", "Пароль", "Роль"]
 
     for user in data:
-        table.add_row([
-            user["login"]
-        ])
-
+        role = "Администратор" if user["role"] == 1 else "Пользователь"
+        table.add_row([user['id'], user['surname'], user['name'], user['login'], user['password'], role])
     print(table)
 
 # Функция для показа опции сортировки
@@ -767,6 +756,7 @@ def user_menu(data, user_login):
             convert(docx_filename)
             print(f"Документ успешно создан и сохранен в форматах .pdf и .docx  с названиями заполненный_документ соответственно")
         elif choice == "2":
+            logout_user(data, user_login)
             break
         else:
             print("Неверный выбор. Пожалуйста, выберите 1 или 2.")
@@ -848,6 +838,16 @@ def view_stats_menu(data):
             break
         else:
             print("Неверный выбор. Пожалуйста, выберите 1, 2 или 3.")
+
+def log_user_entry(user_login, entry_time):
+    log_entry = f"{user_login},{entry_time.strftime('%Y-%m-%d %H:%M:%S')},"
+    with open("user_log.txt", "a") as log_file:
+        log_file.write(log_entry)
+
+def log_user_exit(user_login, exit_time):
+    log_exit = exit_time.strftime('%Y-%m-%d %H:%M:%S')
+    with open("user_log.txt", "a") as log_file:
+        log_file.write(log_exit + ";\n")
 
 # Основной цикл программы
 while True:
