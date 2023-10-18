@@ -746,24 +746,13 @@ def fill_document(doc, fields):
                             paragraph.text = paragraph.text.replace(placeholder, value)
 
 
-def save_filled_document(fields, user_login):
+def save_filled_document(fields, docx_filename):
     doc = Document("шаблон.docx")
     fill_document(doc, fields)
-
-    current_datetime = datetime.now()
-    username = user_login  # Replace with actual username extraction logic
-
-    formatted_datetime = current_datetime.strftime("%Y%d%m%H%M%S")
-
-    docx_filename = f"{username}{formatted_datetime}.docx"
-    pdf_filename = f"{username}{formatted_datetime}.pdf"
-
     doc.save(docx_filename)
+    convert(docx_filename)
 
-    # Convert the .docx to .pdf
-    convert(docx_filename, pdf_filename)
 
-    return docx_filename, pdf_filename
 def save_document(doc, filename):
     doc.save(filename)
 
@@ -773,7 +762,6 @@ def save_filled_document(fields, docx_filename):
     doc.save(docx_filename)
     convert(docx_filename)
 
-
 def user_menu(data, user_login):
     while True:
         print("\033[96m1.\033[0m Сформировать документ (заполнение через диалоговое окно)")
@@ -782,7 +770,11 @@ def user_menu(data, user_login):
 
         if choice == "1":
             fields = get_user_input()
-            docx_filename = "заполненный_документ.docx"
+            current_datetime = datetime.now()
+            username = user_login  # Замените на логику извлечения имени пользователя
+            formatted_datetime = current_datetime.strftime("%Y-%d-%m %H-%M-%S")
+            docx_filename = f"{username} {formatted_datetime}.docx"
+            pdf_filename = f"{username} {formatted_datetime}.pdf"
             save_filled_document(fields, docx_filename)
             print(f"Документ успешно создан и сохранен в форматах .docx и .pdf с названиями 'заполненный_документ'")
             save_to_excel(fields)
@@ -791,6 +783,7 @@ def user_menu(data, user_login):
             break
         else:
             print("Неверный выбор. Пожалуйста, выберите 1 или 2.")
+
 
 # Функция для админ меню
 def admin_menu(data, user_login):
