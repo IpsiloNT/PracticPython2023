@@ -1,6 +1,8 @@
 import json
 from prettytable import PrettyTable
 from datetime import datetime
+from docx import Document
+from docx2pdf import convert
 
 # Функция для загрузки данных из JSON-файла
 def load_data():
@@ -687,17 +689,88 @@ def view_stats_login(data):
         else:
             print(f"Пользователь с логином '{user_login}' не найден.")
 
+def input_field(prompt):
+    return input(prompt)
+
+def get_user_input():
+    delivery_num = input_field("Введите номер поставки (только цифры): ")
+    while not delivery_num.isdigit:
+        print("Номер поставки должен содержать только цифры. Пожалуйста, введите его заново.")
+        delivery_num = input_field("Введите номер поставки (только цифры): ")
+
+    day = input_field("Введите день договора числом: ")
+    while not day.isdigit() or not (1 <= int(day) <= 31):
+        print("День должен быть числом от 1 до 31. Пожалуйста, введите его заново.")
+        day = input_field("Введите день договора числом: ")
+
+    month = input_field("Введите месяц договора числом: ")
+    while not month.isdigit() or not (1 <= int(month) <= 12):
+        print("Месяц должен быть числом от 1 до 12. Пожалуйста, введите его заново.")
+        month = input_field("Введите месяц договора числом: ")
+    fields = {
+        "delivery_num": delivery_num,
+        "day": day,
+        "month": month,
+        "name_company": input_field("Введите название компании поставщика: "),
+        "index": input_field("Введите индекс поставщика: "),
+        "region": input_field("Введите название региона: "),
+        "city": input_field("Введите название города: "),
+        "street": input_field("Введите название улицы: "),
+        "home_num": input_field("Введите номер дома: "),
+        "ogrn_num": input_field("Введите ОГРН: "),
+        "inn_num": input_field("Введите ИНН: "),
+        "kp_num": input_field("Введите КПП: "),
+        "rs_num": input_field("Введите расчетный счет: "),
+        "bank_name": input_field("Введите название банка: "),
+        "ks_num": input_field("Введите корреспондентский счет: "),
+        "bik_nam": input_field("Введите БИК банка: "),
+        "tel": input_field("Введите телефон: "),
+        "position": input_field("Введите должность: "),
+        "sokr_name": input_field("Введите инициал имени: "),
+        "sokr_middlename": input_field("Введите инициал отчества: "),
+        "surname": input_field("Введите фамилию: ")
+    }
+    return fields
+
+def fill_document(doc, fields):
+    for paragraph in doc.paragraphs:
+        for field, value in fields.items():
+            placeholder = "{" + field + "}"
+            if placeholder in paragraph.text:
+                paragraph.text = paragraph.text.replace(placeholder, value)
+
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for paragraph in cell.paragraphs:
+                    for field, value in fields.items():
+                        placeholder = "{" + field + "}"
+                        if placeholder in paragraph.text:
+                            paragraph.text = paragraph.text.replace(placeholder, value)
+
+def save_document(doc, filename):
+    doc.save(filename)
+
+
 def user_menu(data, user_login):
     while True:
         print("\033[96m1.\033[0m Сформировать документ (заполнение через диалоговое окно)")
         print("\033[96m2.\033[0m Выход")
         choice = input("Выберите действие: ")
         if choice == "1":
-            break
-        if choice == "2":
+            fields = get_user_input()
+            doc = Document("шаблон.docx")
+            fill_document(doc, fields)
+            docx_filename = "заполненный_документ.docx"
+            save_document(doc, "заполненный_документ.docx")
+            doc.save("заполненный_документ.docx")
+            convert(docx_filename)
+            print(f"Документ успешно создан и сохранен в форматах .pdf и .docx  с названиями заполненный_документ соответственно")
+        elif choice == "2":
             break
         else:
-            print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
+            print("Неверный выбор. Пожалуйста, выберите 1 или 2.")
+
 
 
 # Функция для админ меню

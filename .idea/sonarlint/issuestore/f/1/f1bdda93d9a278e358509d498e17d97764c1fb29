@@ -1,4 +1,39 @@
 
-spython:S3776ó"TRefactor this function to reduce its Cognitive Complexity from 21 to the 15 allowed.(˘è∫8ı¥á¶≥1
-<python:S2772‰"Remove this unneeded "pass".(„ë€æ8ˇπÊæ≥1
-Ypython:S1135Ê"4Complete the task associated to this "TODO" comment.(©Ü ¬¯ˇˇˇˇ8ˇπÊæ≥1
+kpython:S1192B"MDefine a constant instead of duplicating this literal "–ü–∞—Ä–æ–ª—å" 3 times.(Ò∫Ùj8Êì˜ˇ≥1
+ipython:S1192B"KDefine a constant instead of duplicating this literal "–õ–æ–≥–∏–Ω" 9 times.(Ò∫Ùj8Áì˜ˇ≥1
+xpython:S1192E"YDefine a constant instead of duplicating this literal "–ü–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—å" 5 times.(ƒ‰’ƒ8Áì˜ˇ≥1
+spython:S1192F"ODefine a constant instead of duplicating this literal "–í–∫–ª—é—á–µ–Ω" 3 times.(ª∂£≥˝ˇˇˇˇ8Áì˜ˇ≥1
+kpython:S1192B"MDefine a constant instead of duplicating this literal "–°—Ç–∞—Ç—É—Å" 5 times.(Ò∫Ùj8Áì˜ˇ≥1
+Ñpython:S1192∂"dDefine a constant instead of duplicating this literal "–í—ã–±–µ—Ä–∏—Ç–µ –¥–µ–π—Å—Ç–≤–∏–µ: " 3 times.(©–Òõ8Áì˜ˇ≥1
+upython:S1192F"QDefine a constant instead of duplicating this literal "–û—Ç–∫–ª—é—á–µ–Ω" 3 times.(ª∂£≥˝ˇˇˇˇ8Áì˜ˇ≥1
+python:S1192Ó"_Define a constant instead of duplicating this literal "1. –ü–æ –≤–æ–∑—Ä–∞—Å—Ç–∞–Ω–∏—é" 6 times.( ⁄≈Å8Áì˜ˇ≥1
+îpython:S1192"oDefine a constant instead of duplicating this literal "3. –ù–∞–∑–∞–¥ –≤ –º–µ–Ω—é —Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∏" 6 times.(¬¸˘»˛ˇˇˇˇ8Áì˜ˇ≥1
+ypython:S1192Ô"YDefine a constant instead of duplicating this literal "2. –ü–æ —É–±—ã–≤–∞–Ω–∏—é" 6 times.(´Œ´Ê8Áì˜ˇ≥1
+mpython:S1192B"ODefine a constant instead of duplicating this literal "–§–∞–º–∏–ª–∏—è" 9 times.(Ò∫Ùj8Áì˜ˇ≥1
+ÿpython:S1192¸"∑Define a constant instead of duplicating this literal "–ù–µ–≤–µ—Ä–Ω—ã–π –≤—ã–±–æ—Ä –ø–æ—Ä—è–¥–∫–∞ —Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∏. –ü–æ–∂–∞–ª—É–π—Å—Ç–∞, –≤—ã–±–µ—Ä–∏—Ç–µ 1, 2 –∏–ª–∏ 3." 6 times.(ºÏ¬Ï8Áì˜ˇ≥1
+zpython:S1192E"[Define a constant instead of duplicating this literal "–ê–¥–º–∏–Ω–∏—Å—Ç—Ä–∞—Ç–æ—Ä" 5 times.(ƒ‰’ƒ8Áì˜ˇ≥1
+ópython:S1192Ò"wDefine a constant instead of duplicating this literal "–í—ã–±–µ—Ä–∏—Ç–µ –ø–æ—Ä—è–¥–æ–∫ —Å–æ—Ä—Ç–∏—Ä–æ–≤–∫–∏: " 6 times.(Ô¬ó¶8Áì˜ˇ≥1
+npython:S1192Ë"NDefine a constant instead of duplicating this literal "4. –ù–∞–∑–∞–¥" 4 times.(ÄùÇ˝8Áì˜ˇ≥1
+spython:S3776ù"TRefactor this function to reduce its Cognitive Complexity from 23 to the 15 allowed.(˘è∫8Áì˜ˇ≥1
+ypython:S3776‚"TRefactor this function to reduce its Cognitive Complexity from 37 to the 15 allowed.(Î‹∫ï¸ˇˇˇˇ8Ëì˜ˇ≥1
+tpython:S3776Ã"TRefactor this function to reduce its Cognitive Complexity from 37 to the 15 allowed.(Î‘πâ8Ëì˜ˇ≥1
+<python:S2772‡"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772‰"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772˝"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772Ù"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772¯"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772í"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772â"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772ç"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772˚"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772˛"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772Å"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772Ñ"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772°"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772ñ"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772ô"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772ú"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+Lpython:S1172≤",Remove the unused function parameter "data".(›Æ∆ò8Ëì˜ˇ≥1
+Rpython:S1172≤"2Remove the unused function parameter "user_login".(›Æ∆ò8Ëì˜ˇ≥1
+<python:S2772ˇ"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
+<python:S2772Ö"Remove this unneeded "pass".(„ë€æ8Ëì˜ˇ≥1
