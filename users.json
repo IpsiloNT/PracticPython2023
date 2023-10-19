@@ -7,9 +7,11 @@
         "password": "d",
         "role": 1,
         "status": "active",
-        "login_count": 84,
-        "login_time": "2023-10-19 03:29:57",
-        "logout_time": "2023-10-19 03:30:00"
+        "login_count": 110,
+        "logout_count": 100,
+        "login_time": "2023-10-19 05:44:17",
+        "logout_time": null,
+        "last_exit": "2023-10-19 05:06:11"
     },
     {
         "id": 2,
@@ -19,8 +21,10 @@
         "password": "d",
         "role": 0,
         "status": "active",
-        "login_count": 4,
-        "login_time": "2023-10-19 03:30:50",
-        "logout_time": null
+        "login_count": 105,
+        "logout_count": 100,
+        "login_time": "2023-10-19 05:29:36",
+        "logout_time": null,
+        "last_exit": "2023-10-19 05:06:18"
     }
 ]

@@ -6,6 +6,15 @@ from docx2pdf import convert
 import pandas as pd
 import os
 import msvcrt
+import numpy as np
+import matplotlib.pyplot as plt
+import atexit
+import calendar
+import datetime
+import calendar
+import datetime
+import numpy as np
+
 
 JSON_FILE = "users.json"
 
@@ -15,9 +24,6 @@ def load_data():
             data = json.load(f)
     except (FileNotFoundError, json.decoder.JSONDecodeError):
         data = []
-
-    for user in data:
-        user.setdefault("login_count", 0)
     return data
 
 # Функция для сохранения данных в JSON-файл
@@ -59,7 +65,7 @@ def authenticate(data):
 
             print(f"Вы вошли как {'Администратор' if user['role'] == 1 else 'Пользователь'}")
             user["login_count"] += 1
-            user["login_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            user["login_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             user["logout_time"] = None
             save_data(data)
 
@@ -831,6 +837,137 @@ def create_user_folder(username):
         os.mkdir(folder_name)  # Создаем папку, если она не существует
     return folder_name
 
+def show_user_activity(username):
+    width = 0.35
+    data = load_data()
+    users = []
+    login_counts = []
+    logout_counts = []
+    for user in data:
+        if user['login'] == username:
+            users.append(user['login'])
+            login_counts.append(user['login_count'])
+            logout_counts.append(user.get('logout_count', 0))
+    if len(users) == 0:
+        print(f"No data found for user: {username}")
+        return
+
+    x = np.arange(len(users))
+
+    plt.bar(x - width / 2, login_counts, width, label='Login count')
+    plt.bar(x + width / 2, logout_counts, width, label='Logout count')
+
+    plt.xlabel('Users')
+    plt.ylabel('Count')
+    plt.title(f'User Login and Logout Count for {username}')
+    plt.legend()
+
+    plt.xticks(x, users)
+
+    plt.show()
+
+def show_diagramMonth():
+    data = load_data()
+
+    month = int(input("Введите номер месяца (1-12): "))
+
+    login_counts = []
+    user_logins = []
+
+    for user_data in data:
+        if 'last_login' in user_data:
+            login_date = datetime.datetime.strptime(user_data['last_login'], "%Y-%m-%d %H:%M:%S")
+            if login_date.month == month:
+                login_counts.append(user_data.get('login_count', 0))
+                user_logins.append(user_data['login'])
+
+    x = range(len(login_counts))
+
+    plt.bar(x, login_counts, label='Входы')
+
+    plt.xlabel('Пользователи')
+    plt.ylabel('Количество входов')
+    plt.title(f'График входов пользователей в выбранном месяце')
+    plt.xticks(x, user_logins, rotation=90)
+
+    plt.show()
+
+def Graphics():
+    width = 0.35
+    data = load_data()
+    users = []
+    login_counts = []
+    logout_counts = []
+    for user in data:
+        users.append(user['login'])
+        login_counts.append(user['login_count'])
+        logout_counts.append(user.get('logout_count', 0))  # Используем get для обратной совместимости
+    x = np.arange(len(users))
+
+    plt.bar(x - width / 2, login_counts, width, label='Login count')
+    plt.bar(x + width / 2, logout_counts, width, label='Logout count')
+
+    plt.xlabel('Users')
+    plt.ylabel('Count')
+    plt.title('User Login and Logout Count by Week')
+    plt.legend()
+
+    plt.xticks(x, users)
+    plt.show()
+
+def on_exit(login_enter):
+    data = load_data()
+    for user in data:
+        if user["login"] == login_enter:
+            user["last_exit"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            break
+    save_data(data)
+
+def show_user_activityMonth(username):
+    data = load_data()
+
+    month = int(input("Введите номер месяца (1-12): "))
+
+    user_data = None
+    for data_row in data:
+        if data_row['login'] == username:
+            user_data = data_row
+            break
+
+    if user_data is None:
+        print(f"Пользователь с логином '{username}' не найден.")
+        return
+
+    login_counts = [0] * calendar.monthrange(datetime.datetime.now().year, month)[1]
+    logout_counts = [0] * calendar.monthrange(datetime.datetime.now().year, month)[1]
+
+    # Check if 'last_login' key exists in user_data
+    if 'last_login' in user_data and user_data['last_login']:
+        login_date = datetime.datetime.strptime(user_data['last_login'], "%Y-%m-%d %H:%M:%S")
+        if login_date.month == month:
+            login_counts[login_date.day - 1] = user_data['login_count']
+
+    # Check if 'last_exit' key exists in user_data
+    if 'last_exit' in user_data and user_data['last_exit']:
+        logout_date = datetime.datetime.strptime(user_data['last_exit'], "%Y-%m-%d %H:%M:%S")
+        if logout_date.month == month:
+            logout_counts[logout_date.day - 1] = user_data['logout_count']
+
+    x = list(range(1, len(login_counts) + 1))
+    width = 0.4
+
+    plt.bar(x, login_counts, width=width, label='Входы', color='blue')
+    plt.bar([i + width for i in x], logout_counts, width=width, label='Выходы', color='red', alpha=0.5)
+
+    plt.xlabel('Дни')
+    plt.ylabel('Количество')
+    plt.title(f'График активности пользователя {username} в выбранном месяце')
+    plt.xticks([i + width / 2 for i in x], [str(day) for day in x])
+
+    plt.legend()
+    plt.show()
+
+
 # Функция для админ меню
 def admin_menu(data, user_login):
     while True:
@@ -840,13 +977,16 @@ def admin_menu(data, user_login):
         print("\033[96m4.\033[0m Изменить данные пользователя")
         print("\033[96m5.\033[0m Изменить статус пользователя (включен/отключен)")
         print("\033[96m6.\033[0m Просмотр статистики")
-        print("\033[96m7.\033[0m Просмотр графиков")
-        print("\033[96m8.\033[0m Выход")
-        choice = input("Выберите действие: ")
+        print("7. Графики")
+        print("8. Графики за месяц")
+        print("9. Графики за неделю конкретного пользователя")
+        print("10. Графики за месяц конкретного пользователя")
+        print("\033[96m11.\033[0m Выход")
+        choice = input("Выберите действие: ").replace(" ", "")
 
         if choice == "1":
             view_users(data)
-            sort_or_filtr()
+            sort_or_filter()
         elif choice == "2":
             add_user(data)
         elif choice == "3":
@@ -858,12 +998,35 @@ def admin_menu(data, user_login):
         elif choice == "6":
             view_stats_menu(data)
         elif choice == "7":
-            break
+            Graphics()
         elif choice == "8":
-            logout_user(data, user_login)  # Вызов функции logout_user при выходе
+            show_diagramMonth()
+        elif choice == "9":
+            select = input("Выберите какую диаграмму вывести:\n1. Всех пользователей\n2. Конкретного пользователя\n")
+            if select == "1":
+                Graphics()
+                atexit.register(on_exit, user_login)
+            elif select == "2":
+                username = input("Введите логин пользователя: ")
+                view_users(data)
+                show_user_activity(username)
+                atexit.register(on_exit, user_login)
+        elif choice == "10":
+            select = input("Выберите какую диаграмму вывести:\n1. Всех пользователей\n2. Конкретного пользователя\n")
+            if select == "1":
+                show_diagramMonth()
+                atexit.register(on_exit, user_login)
+            elif select == "2":
+                username = input("Введите логин пользователя: ")
+                view_users(data)
+                show_user_activityMonth(username)
+                atexit.register(on_exit, user_login)
+            else:
+                print("Неверный выбор. Выберите 1 или 2")
+        elif choice == "11":
             break
         else:
-            print("Неверный выбор. Пожалуйста, выберите 1, 2, 3, 4, 5, 6 или 7.")
+            print("Неверный выбор. Пожалуйста, выберите правильное действие.")
 
 # Функция для вывода информации о времени продолжительности работы пользователя
 def view_work_duration(user_to_view_duration):
