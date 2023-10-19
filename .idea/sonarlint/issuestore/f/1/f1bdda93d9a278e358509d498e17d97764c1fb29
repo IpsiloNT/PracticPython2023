@@ -1,39 +1,39 @@
 
-kpython:S1192B"MDefine a constant instead of duplicating this literal "ĞŸĞ°Ñ€Ğ¾Ğ»ÑŒ" 3 times.(ñºôj8æ“÷ÿ³1
-ipython:S1192B"KDefine a constant instead of duplicating this literal "Ğ›Ğ¾Ğ³Ğ¸Ğ½" 9 times.(ñºôj8ç“÷ÿ³1
-xpython:S1192E"YDefine a constant instead of duplicating this literal "ĞŸĞ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ñ‚ĞµĞ»ÑŒ" 5 times.(ÄäÕÄ8ç“÷ÿ³1
-spython:S1192F"ODefine a constant instead of duplicating this literal "Ğ’ĞºĞ»ÑÑ‡ĞµĞ½" 3 times.(»¶£³ıÿÿÿÿ8ç“÷ÿ³1
-kpython:S1192B"MDefine a constant instead of duplicating this literal "Ğ¡Ñ‚Ğ°Ñ‚ÑƒÑ" 5 times.(ñºôj8ç“÷ÿ³1
-„python:S1192¶"dDefine a constant instead of duplicating this literal "Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ Ğ´ĞµĞ¹ÑÑ‚Ğ²Ğ¸Ğµ: " 3 times.(©Ğñ›8ç“÷ÿ³1
-upython:S1192F"QDefine a constant instead of duplicating this literal "ĞÑ‚ĞºĞ»ÑÑ‡ĞµĞ½" 3 times.(»¶£³ıÿÿÿÿ8ç“÷ÿ³1
-python:S1192î"_Define a constant instead of duplicating this literal "1. ĞŸĞ¾ Ğ²Ğ¾Ğ·Ñ€Ğ°ÑÑ‚Ğ°Ğ½Ğ¸Ñ" 6 times.(ÊÚÅ8ç“÷ÿ³1
-”python:S1192ğ"oDefine a constant instead of duplicating this literal "3. ĞĞ°Ğ·Ğ°Ğ´ Ğ² Ğ¼ĞµĞ½Ñ ÑĞ¾Ñ€Ñ‚Ğ¸Ñ€Ğ¾Ğ²ĞºĞ¸" 6 times.(ÂüùÈşÿÿÿÿ8ç“÷ÿ³1
-ypython:S1192ï"YDefine a constant instead of duplicating this literal "2. ĞŸĞ¾ ÑƒĞ±Ñ‹Ğ²Ğ°Ğ½Ğ¸Ñ" 6 times.(«Î«æ8ç“÷ÿ³1
-mpython:S1192B"ODefine a constant instead of duplicating this literal "Ğ¤Ğ°Ğ¼Ğ¸Ğ»Ğ¸Ñ" 9 times.(ñºôj8ç“÷ÿ³1
-Øpython:S1192ü"·Define a constant instead of duplicating this literal "ĞĞµĞ²ĞµÑ€Ğ½Ñ‹Ğ¹ Ğ²Ñ‹Ğ±Ğ¾Ñ€ Ğ¿Ğ¾Ñ€ÑĞ´ĞºĞ° ÑĞ¾Ñ€Ñ‚Ğ¸Ñ€Ğ¾Ğ²ĞºĞ¸. ĞŸĞ¾Ğ¶Ğ°Ğ»ÑƒĞ¹ÑÑ‚Ğ°, Ğ²Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ 1, 2 Ğ¸Ğ»Ğ¸ 3." 6 times.(¼ìÂì8ç“÷ÿ³1
-zpython:S1192E"[Define a constant instead of duplicating this literal "ĞĞ´Ğ¼Ğ¸Ğ½Ğ¸ÑÑ‚Ñ€Ğ°Ñ‚Ğ¾Ñ€" 5 times.(ÄäÕÄ8ç“÷ÿ³1
-—python:S1192ñ"wDefine a constant instead of duplicating this literal "Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ Ğ¿Ğ¾Ñ€ÑĞ´Ğ¾Ğº ÑĞ¾Ñ€Ñ‚Ğ¸Ñ€Ğ¾Ğ²ĞºĞ¸: " 6 times.(ïÂ—¦8ç“÷ÿ³1
-npython:S1192è"NDefine a constant instead of duplicating this literal "4. ĞĞ°Ğ·Ğ°Ğ´" 4 times.(€‚ı8ç“÷ÿ³1
-spython:S3776"TRefactor this function to reduce its Cognitive Complexity from 23 to the 15 allowed.(ùº8ç“÷ÿ³1
-ypython:S3776â"TRefactor this function to reduce its Cognitive Complexity from 37 to the 15 allowed.(ëÜº•üÿÿÿÿ8è“÷ÿ³1
-tpython:S3776Ì"TRefactor this function to reduce its Cognitive Complexity from 37 to the 15 allowed.(ëÔ¹‰8è“÷ÿ³1
-<python:S2772à"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772ä"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772ı"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772ô"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772ø"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772’"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772‰"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772û"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772ş"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772„"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772¡"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772–"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772™"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772œ"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-Lpython:S1172²",Remove the unused function parameter "data".(İ®Æ˜8è“÷ÿ³1
-Rpython:S1172²"2Remove the unused function parameter "user_login".(İ®Æ˜8è“÷ÿ³1
-<python:S2772ÿ"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
-<python:S2772…"Remove this unneeded "pass".(ã‘Û¾8è“÷ÿ³1
+xpython:S1192E"YDefine a constant instead of duplicating this literal "ĞŸĞ¾Ğ»ÑŒĞ·Ğ¾Ğ²Ğ°Ñ‚ĞµĞ»ÑŒ" 5 times.(ÄäÕÄ8¼¦û¨´1
+spython:S1192F"ODefine a constant instead of duplicating this literal "Ğ’ĞºĞ»ÑÑ‡ĞµĞ½" 3 times.(»¶£³ıÿÿÿÿ8½¦û¨´1
+upython:S1192F"QDefine a constant instead of duplicating this literal "ĞÑ‚ĞºĞ»ÑÑ‡ĞµĞ½" 3 times.(»¶£³ıÿÿÿÿ8¾¦û¨´1
+”python:S1192ğ"oDefine a constant instead of duplicating this literal "3. ĞĞ°Ğ·Ğ°Ğ´ Ğ² Ğ¼ĞµĞ½Ñ ÑĞ¾Ñ€Ñ‚Ğ¸Ñ€Ğ¾Ğ²ĞºĞ¸" 6 times.(ÂüùÈşÿÿÿÿ8Úµ¤¨´1
+mpython:S1192B"ODefine a constant instead of duplicating this literal "Ğ¤Ğ°Ğ¼Ğ¸Ğ»Ğ¸Ñ" 9 times.(ñºôj8¾¦û¨´1
+Øpython:S1192ü"·Define a constant instead of duplicating this literal "ĞĞµĞ²ĞµÑ€Ğ½Ñ‹Ğ¹ Ğ²Ñ‹Ğ±Ğ¾Ñ€ Ğ¿Ğ¾Ñ€ÑĞ´ĞºĞ° ÑĞ¾Ñ€Ñ‚Ğ¸Ñ€Ğ¾Ğ²ĞºĞ¸. ĞŸĞ¾Ğ¶Ğ°Ğ»ÑƒĞ¹ÑÑ‚Ğ°, Ğ²Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ 1, 2 Ğ¸Ğ»Ğ¸ 3." 6 times.(¼ìÂì8Ûµ¤¨´1
+—python:S1192ñ"wDefine a constant instead of duplicating this literal "Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ Ğ¿Ğ¾Ñ€ÑĞ´Ğ¾Ğº ÑĞ¾Ñ€Ñ‚Ğ¸Ñ€Ğ¾Ğ²ĞºĞ¸: " 6 times.(ïÂ—¦8Ûµ¤¨´1
+npython:S1192è"NDefine a constant instead of duplicating this literal "4. ĞĞ°Ğ·Ğ°Ğ´" 4 times.(€‚ı8Ûµ¤¨´1
+kpython:S1192B"MDefine a constant instead of duplicating this literal "ĞŸĞ°Ñ€Ğ¾Ğ»ÑŒ" 3 times.(ñºôj8¿¦û¨´1
+ipython:S1192B"KDefine a constant instead of duplicating this literal "Ğ›Ğ¾Ğ³Ğ¸Ğ½" 9 times.(ñºôj8¿¦û¨´1
+kpython:S1192B"MDefine a constant instead of duplicating this literal "Ğ¡Ñ‚Ğ°Ñ‚ÑƒÑ" 5 times.(ñºôj8¿¦û¨´1
+„python:S1192Œ"dDefine a constant instead of duplicating this literal "Ğ’Ñ‹Ğ±ĞµÑ€Ğ¸Ñ‚Ğµ Ğ´ĞµĞ¹ÑÑ‚Ğ²Ğ¸Ğµ: " 3 times.(©Ğñ›8Ûµ¤¨´1
+python:S1192î"_Define a constant instead of duplicating this literal "1. ĞŸĞ¾ Ğ²Ğ¾Ğ·Ñ€Ğ°ÑÑ‚Ğ°Ğ½Ğ¸Ñ" 6 times.(ÊÚÅ8Ûµ¤¨´1
+ypython:S1192ï"YDefine a constant instead of duplicating this literal "2. ĞŸĞ¾ ÑƒĞ±Ñ‹Ğ²Ğ°Ğ½Ğ¸Ñ" 6 times.(«Î«æ8Ûµ¤¨´1
+zpython:S1192E"[Define a constant instead of duplicating this literal "ĞĞ´Ğ¼Ğ¸Ğ½Ğ¸ÑÑ‚Ñ€Ğ°Ñ‚Ğ¾Ñ€" 5 times.(ÄäÕÄ8À¦û¨´1
+spython:S3776"TRefactor this function to reduce its Cognitive Complexity from 23 to the 15 allowed.(ùº8Ûµ¤¨´1
+ypython:S3776â"TRefactor this function to reduce its Cognitive Complexity from 37 to the 15 allowed.(ëÜº•üÿÿÿÿ8Ûµ¤¨´1
+tpython:S3776Ì"TRefactor this function to reduce its Cognitive Complexity from 37 to the 15 allowed.(ëÔ¹‰8Ûµ¤¨´1
+<python:S2772à"Remove this unneeded "pass".(ã‘Û¾8Ûµ¤¨´1
+<python:S2772ä"Remove this unneeded "pass".(ã‘Û¾8Ûµ¤¨´1
+<python:S2772ı"Remove this unneeded "pass".(ã‘Û¾8Ûµ¤¨´1
+<python:S2772ô"Remove this unneeded "pass".(ã‘Û¾8Ûµ¤¨´1
+<python:S2772ø"Remove this unneeded "pass".(ã‘Û¾8Ûµ¤¨´1
+<python:S2772’"Remove this unneeded "pass".(ã‘Û¾8Ûµ¤¨´1
+<python:S2772‰"Remove this unneeded "pass".(ã‘Û¾8Ûµ¤¨´1
+<python:S2772"Remove this unneeded "pass".(ã‘Û¾8Üµ¤¨´1
+<python:S2772û"Remove this unneeded "pass".(ã‘Û¾8Üµ¤¨´1
+<python:S2772ş"Remove this unneeded "pass".(ã‘Û¾8Üµ¤¨´1
+<python:S2772"Remove this unneeded "pass".(ã‘Û¾8Üµ¤¨´1
+<python:S2772„"Remove this unneeded "pass".(ã‘Û¾8Üµ¤¨´1
+<python:S2772¡"Remove this unneeded "pass".(ã‘Û¾8Üµ¤¨´1
+<python:S2772–"Remove this unneeded "pass".(ã‘Û¾8Üµ¤¨´1
+<python:S2772™"Remove this unneeded "pass".(ã‘Û¾8Üµ¤¨´1
+<python:S2772œ"Remove this unneeded "pass".(ã‘Û¾8Üµ¤¨´1
+ypython:S3776Ù"TRefactor this function to reduce its Cognitive Complexity from 27 to the 15 allowed.(Çïƒäûÿÿÿÿ8Üµ¤¨´1
+Lpython:S1172ˆ",Remove the unused function parameter "data".(İ®Æ˜8Üµ¤¨´1
+<python:S2772ß"Remove this unneeded "pass".(ã‘Û¾8Üµ¤¨´1
+<python:S2772å"Remove this unneeded "pass".(ã‘Û¾8Üµ¤¨´1

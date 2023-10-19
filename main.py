@@ -5,6 +5,7 @@ from docx import Document
 from docx2pdf import convert
 import pandas as pd
 import os
+import msvcrt
 
 JSON_FILE = "users.json"
 
@@ -19,17 +20,35 @@ def load_data():
         user.setdefault("login_count", 0)
     return data
 
+# Функция для сохранения данных в JSON-файл
 def save_data(data):
     with open(JSON_FILE, "w") as f:
         json.dump(data, f, indent=4)
 
+# Функция для проверки существования пользователя по логину
 def check_user_existence(login, data):
     return any(user["login"] == login for user in data)
 
+# Функция для авторизации пользователя
 def authenticate(data):
     while True:
-        user_login = input("Введите логин: ")
-        password = input("Введите пароль: ")
+        user_login = input("\033[1;32mВведите логин: \033[0m")
+
+        password = ""
+        password = password.encode('iso-8859-1').decode('utf-8')
+        print('\033[1;32mВведите пароль: ', end='')
+        while True:
+            ch = msvcrt.getch()
+            if ch == b'\r':
+                print()
+                break
+            elif ch == b'\x08':
+                if len(password) > 0:
+                    password = password[:-1]
+                    print('\b \b', end='')
+            else:
+                password += ch.decode("utf-8")
+                print('\033[1;35m*', end='')
 
         user = next((user for user in data if user["login"] == user_login and user["password"] == password), None)
 
@@ -58,6 +77,8 @@ def logout_user(data, user_login):
         user["logout_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         save_data(data)
 
+
+# Функция для отображения данных всех пользователей через PrettyTable
 def view_users(data):
     if not data:
         print("Нет зарегистрированных пользователей.")
@@ -71,6 +92,7 @@ def view_users(data):
             table.add_row([user["id"], user["surname"], user["name"], user["login"], user["password"], role, status])
         print(table)
 
+# Функция для добавления нового пользователя
 def add_user(data):
     last_name = input("Введите фамилию: ")
     first_name = input("Введите имя: ")
@@ -114,7 +136,6 @@ def add_user(data):
     save_data(data)
     print("Пользователь успешно добавлен в базу данных.")
     view_users(data)
-
 
 # Функция для изменения статуса пользователя
 def change_user_status(data):
@@ -691,10 +712,24 @@ def input_field(prompt):
     return input(prompt)
 
 def get_user_input():
+    delivery_num = input_field("Введите номер поставки (только цифры): ")
+    while not delivery_num.isdigit:
+        print("Номер поставки должен содержать только цифры. Пожалуйста, введите его заново.")
+        delivery_num = input_field("Введите номер поставки (только цифры): ")
+
+    day = input_field("Введите день договора числом: ")
+    while not day.isdigit() or not (1 <= int(day) <= 31):
+        print("День должен быть числом от 1 до 31. Пожалуйста, введите его заново.")
+        day = input_field("Введите день договора числом: ")
+
+    month = input_field("Введите месяц договора числом: ")
+    while not month.isdigit() or not (1 <= int(month) <= 12):
+        print("Месяц должен быть числом от 1 до 12. Пожалуйста, введите его заново.")
+        month = input_field("Введите месяц договора числом: ")
     fields = {
-        "delivery_num": input_field("Введите номер поставки (только цифры): "),
-        "day": input_field("Введите день договора числом: "),
-        "month": input_field("Введите месяц договора числом: "),
+        "delivery_num": delivery_num,
+        "day": day,
+        "month": month,
         "name_company": input_field("Введите название компании поставщика: "),
         "index": input_field("Введите индекс поставщика: "),
         "region": input_field("Введите название региона: "),
@@ -805,7 +840,8 @@ def admin_menu(data, user_login):
         print("\033[96m4.\033[0m Изменить данные пользователя")
         print("\033[96m5.\033[0m Изменить статус пользователя (включен/отключен)")
         print("\033[96m6.\033[0m Просмотр статистики")
-        print("\033[96m7.\033[0m Выход")
+        print("\033[96m7.\033[0m Просмотр графиков")
+        print("\033[96m8.\033[0m Выход")
         choice = input("Выберите действие: ")
 
         if choice == "1":
@@ -822,6 +858,8 @@ def admin_menu(data, user_login):
         elif choice == "6":
             view_stats_menu(data)
         elif choice == "7":
+            break
+        elif choice == "8":
             logout_user(data, user_login)  # Вызов функции logout_user при выходе
             break
         else:
